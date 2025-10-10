@@ -15,11 +15,13 @@ export default function MapCanvas({ onReady }) {
 
   useEffect(() => {
     const key = import.meta.env.VITE_MAPTILER_KEY
+    console.log('MapCanvas: initializing, key present:', !!key)
     if (!containerRef.current || mapRef.current) return
     const hasKey = key && key !== 'YOUR_MAPTILER_KEY_HERE'
     const styleUrl = hasKey
       ? `https://api.maptiler.com/maps/hybrid/style.json?key=${key}`
       : 'https://demotiles.maplibre.org/style.json'
+    console.log('MapCanvas: using style URL:', styleUrl.replace(key, 'XXXX'))
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: styleUrl,
@@ -31,41 +33,57 @@ export default function MapCanvas({ onReady }) {
     })
     mapRef.current = map
 
+    map.on('error', (e) => {
+      console.error('MapLibre error:', e.error)
+    })
+
     map.on('load', async () => {
+      console.log('MapCanvas: map loaded')
       if (hasKey) {
-        map.addSource('terrain', {
-          type: 'raster-dem',
-          url: `https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=${key}`,
-          tileSize: 256,
-        })
-        map.setTerrain({ source: 'terrain', exaggeration: 1.3 })
-        map.addLayer({
-          id: 'sky',
-          type: 'sky',
-          paint: { 'sky-type': 'atmosphere', 'sky-atmosphere-sun-intensity': 10 },
-        })
+        try {
+          map.addSource('terrain', {
+            type: 'raster-dem',
+            url: `https://api.maptiler.com/tiles/terrain-rgb/tiles.json?key=${key}`,
+            tileSize: 256,
+          })
+          map.setTerrain({ source: 'terrain', exaggeration: 1.3 })
+          map.addLayer({
+            id: 'sky',
+            type: 'sky',
+            paint: { 'sky-type': 'atmosphere', 'sky-atmosphere-sun-intensity': 10 },
+          })
+          console.log('MapCanvas: terrain and sky added')
+        } catch (e) {
+          console.error('MapCanvas: terrain setup error:', e)
+        }
       }
 
-      await loadSitePoints(map, sites)
-      onReady?.(map)
+      try {
+        console.log('MapCanvas: loading site points...')
+        await loadSitePoints(map, sites)
+        console.log('MapCanvas: site points loaded')
+        onReady?.(map)
 
-      map.on('mousemove', 'site-points', (e) => {
-        const f = e.features?.[0]
-        if (!f) { setTooltip(t => ({ ...t, visible: false })); return }
-        setTooltip({ visible: true, x: e.point.x, y: e.point.y, text: f.properties.name })
-        map.getCanvas().style.cursor = 'pointer'
-      })
-      map.on('mouseleave', 'site-points', () => {
-        setTooltip(t => ({ ...t, visible: false }))
-        map.getCanvas().style.cursor = ''
-      })
-      map.on('click', 'site-points', (e) => {
-        const f = e.features?.[0]
-        if (!f) return
-        const id = f.properties.siteId
-        const meta = sites[id]
-        setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv })
-      })
+        map.on('mousemove', 'site-points', (e) => {
+          const f = e.features?.[0]
+          if (!f) { setTooltip(t => ({ ...t, visible: false })); return }
+          setTooltip({ visible: true, x: e.point.x, y: e.point.y, text: f.properties.name })
+          map.getCanvas().style.cursor = 'pointer'
+        })
+        map.on('mouseleave', 'site-points', () => {
+          setTooltip(t => ({ ...t, visible: false }))
+          map.getCanvas().style.cursor = ''
+        })
+        map.on('click', 'site-points', (e) => {
+          const f = e.features?.[0]
+          if (!f) return
+          const id = f.properties.siteId
+          const meta = sites[id]
+          setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv })
+        })
+      } catch (e) {
+        console.error('MapCanvas: site points error:', e)
+      }
     })
 
     return () => {
