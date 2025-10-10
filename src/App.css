@@ -1,42 +1,102 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Landing page full-bleed map layout */
+.landing {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.landing-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(8px);
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  padding: 8px 16px;
+  background: rgba(60, 60, 60, 0.9);
+  border-radius: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.landing-nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.landing-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
 }
 
-.card {
-  padding: 2em;
+.landing-nav a:hover {
+  text-decoration: underline;
 }
 
-.read-the-docs {
-  color: #888;
+.landing-map {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-card {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+  max-width: 460px;
+  z-index: 10;
+  background: rgba(30, 30, 30, 0.88);
+  backdrop-filter: blur(12px);
+  padding: 32px;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.hero-body p {
+  margin: 0 0 14px 0;
+}
+
+.hero-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Other pages */
+.content {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
 }
