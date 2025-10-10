@@ -15,13 +15,21 @@ export default function MapCanvas({ onReady }) {
 
   useEffect(() => {
     const key = import.meta.env.VITE_MAPTILER_KEY
-    console.log('MapCanvas: initializing, key present:', !!key)
-    if (!containerRef.current || mapRef.current) return
+    console.log('MapCanvas: initializing, key present:', !!key, 'container:', !!containerRef.current, 'existing map:', !!mapRef.current)
+    if (!containerRef.current) {
+      console.error('MapCanvas: container ref not available')
+      return
+    }
+    if (mapRef.current) {
+      console.log('MapCanvas: map already exists, skipping')
+      return
+    }
     const hasKey = key && key !== 'YOUR_MAPTILER_KEY_HERE'
     const styleUrl = hasKey
       ? `https://api.maptiler.com/maps/hybrid/style.json?key=${key}`
       : 'https://demotiles.maplibre.org/style.json'
-    console.log('MapCanvas: using style URL:', styleUrl.replace(key, 'XXXX'))
+    console.log('MapCanvas: using style URL:', styleUrl.replace(key || '', 'XXXX'))
+    console.log('MapCanvas: creating map instance...')
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: styleUrl,
@@ -32,6 +40,7 @@ export default function MapCanvas({ onReady }) {
       hash: true,
     })
     mapRef.current = map
+    console.log('MapCanvas: map instance created')
 
     map.on('error', (e) => {
       console.error('MapLibre error:', e.error)
