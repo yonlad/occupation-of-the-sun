@@ -1,13 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import maplibreglRtlText from '@mapbox/mapbox-gl-rtl-text'
 import { sites } from '../data/sites.js'
 import { loadSitePoints } from '../map/sourcesLayers.js'
 import Tooltip from './Tooltip.jsx'
 import Modal from './Modal.jsx'
 import DataTable from './DataTable.jsx'
 
-export default function MapCanvas({ onReady }) {
+// Enable RTL text plugin for Hebrew/Arabic
+maplibregl.setRTLTextPlugin(
+  maplibreglRtlText,
+  null,
+  true
+)
+
+export default function MapCanvas({ onReady, onDotClick, grayscale = false }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' })
@@ -83,13 +91,14 @@ export default function MapCanvas({ onReady }) {
           setTooltip(t => ({ ...t, visible: false }))
           map.getCanvas().style.cursor = ''
         })
-        map.on('click', 'site-points', (e) => {
-          const f = e.features?.[0]
-          if (!f) return
-          const id = f.properties.siteId
-          const meta = sites[id]
-          setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv })
-        })
+      map.on('click', 'site-points', (e) => {
+        const f = e.features?.[0]
+        if (!f) return
+        const id = f.properties.siteId
+        const meta = sites[id]
+        setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv })
+        onDotClick?.()
+      })
       } catch (e) {
         console.error('MapCanvas: site points error:', e)
       }
@@ -99,6 +108,17 @@ export default function MapCanvas({ onReady }) {
       map.remove()
     }
   }, [])
+
+  // Apply grayscale filter when grayscale prop changes
+  useEffect(() => {
+    if (!mapRef.current) return
+    const canvas = mapRef.current.getCanvas()
+    if (grayscale) {
+      canvas.style.filter = 'grayscale(100%) contrast(0.9)'
+    } else {
+      canvas.style.filter = ''
+    }
+  }, [grayscale])
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>

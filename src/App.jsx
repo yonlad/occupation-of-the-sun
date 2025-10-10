@@ -13,11 +13,18 @@ function Layout({ children }) {
 
 function Home() {
   const [mapInstance, setMapInstance] = useState(null)
+  const [heroVisible, setHeroVisible] = useState(true)
+  
+  const handleDotClick = () => {
+    setHeroVisible(false)
+  }
+  
   useEffect(() => {
     if (!mapInstance) return
     const unbind = bindScrollScenes(mapInstance, stepsJson)
     return () => unbind?.()
   }, [mapInstance])
+  
   return (
     <div className="landing">
       <header className="landing-header">
@@ -28,17 +35,19 @@ function Home() {
         </nav>
       </header>
       <div className="landing-map">
-        <MapCanvas onReady={setMapInstance} />
+        <MapCanvas onReady={setMapInstance} onDotClick={handleDotClick} grayscale={heroVisible} />
       </div>
-      <div className="hero-card">
-        <h1 className="hero-title">The Occupation of the Sun</h1>
-        <h2 className="hero-subtitle">Research Project Investigating the Energy Industry in the Israeli-Occupied West Bank</h2>
-        <div className="hero-body">
-          <p>Since 2020, the Israeli government has been actively promoting the use of renewable energy. The Government has set ambitious targets to expand its solar energy capacity by 2030. They also recently adopted new policies to promote decentralized energy production, with solar energy playing a central role. To achieve this goal, Israel plans to increase its installed solar capacity to approximately 16GW by 2030. This expansion will involve the construction of large-scale solar farms and the promotion of rooftop solar installations across the country.</p>
-          <p>While Israel promotes its green energy initiatives and environmental policies, it systematically exploits Palestinian land, water, and natural resources. This exploitation, positioned as sustainable development, has fueled the growth of Israel's solar energy industry, while carrying out the expansion of Israeli settlements and the dispossession of Palestinian lands.</p>
-          <p>This is a visual study, calling attention to the structural inequality in the energy sector in the occupied West Bank, and the international companies that play an integral part in implementation of the energy apartheid.</p>
+      {heroVisible && (
+        <div className="hero-card">
+          <h1 className="hero-title">The Occupation of the Sun</h1>
+          <h2 className="hero-subtitle">Research Project Investigating the Energy Industry in the Israeli-Occupied West Bank</h2>
+          <div className="hero-body">
+            <p>Since 2020, the Israeli government has been actively promoting the use of renewable energy. The Government has set ambitious targets to expand its solar energy capacity by 2030. They also recently adopted new policies to promote decentralized energy production, with solar energy playing a central role. To achieve this goal, Israel plans to increase its installed solar capacity to approximately 16GW by 2030. This expansion will involve the construction of large-scale solar farms and the promotion of rooftop solar installations across the country.</p>
+            <p>While Israel promotes its green energy initiatives and environmental policies, it systematically exploits Palestinian land, water, and natural resources. This exploitation, positioned as sustainable development, has fueled the growth of Israel's solar energy industry, while carrying out the expansion of Israeli settlements and the dispossession of Palestinian lands.</p>
+            <p>This is a visual study, calling attention to the structural inequality in the energy sector in the occupied West Bank, and the international companies that play an integral part in implementation of the energy apartheid.</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

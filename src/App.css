@@ -53,45 +53,63 @@
 
 .hero-card {
   position: absolute;
-  top: 120px;
+  top: 130px;
   left: 40px;
-  max-width: 460px;
+  max-width: 480px;
   z-index: 10;
-  background: rgba(30, 30, 30, 0.88);
-  backdrop-filter: blur(12px);
-  padding: 32px;
-  border-radius: 12px;
+  background: rgba(40, 40, 42, 0.92);
+  backdrop-filter: saturate(120%) blur(16px);
+  padding: 40px;
+  border-radius: 16px;
   color: #fff;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.hero-card[hidden] {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
 }
 
 .hero-title {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
-  margin: 0 0 12px 0;
-  line-height: 1.2;
+  margin: 0 0 16px 0;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
-  margin: 0 0 20px 0;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 24px 0;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .hero-body {
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .hero-body p {
-  margin: 0 0 14px 0;
+  margin: 0 0 16px 0;
+  text-align: left;
 }
 
 .hero-body p:last-child {
   margin-bottom: 0;
+}
+
+/* RTL support for Hebrew/Arabic text */
+.hero-body p[dir="rtl"],
+.hero-body [lang="he"],
+.hero-body [lang="ar"] {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: embed;
 }
 
 /* Other pages */
