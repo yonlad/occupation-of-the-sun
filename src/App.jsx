@@ -35,7 +35,7 @@ function Home() {
         </nav>
       </header>
       <div className="landing-map">
-        <MapCanvas onReady={setMapInstance} onDotClick={handleDotClick} grayscale={heroVisible} />
+        <MapCanvas onReady={setMapInstance} onDotClick={handleDotClick} grayscale={true} />
       </div>
       {heroVisible && (
         <div className="hero-card">

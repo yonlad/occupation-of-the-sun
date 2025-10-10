@@ -1,19 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import maplibreglRtlText from '@mapbox/mapbox-gl-rtl-text'
 import { sites } from '../data/sites.js'
 import { loadSitePoints } from '../map/sourcesLayers.js'
 import Tooltip from './Tooltip.jsx'
 import Modal from './Modal.jsx'
 import DataTable from './DataTable.jsx'
 
-// Enable RTL text plugin for Hebrew/Arabic
-maplibregl.setRTLTextPlugin(
-  maplibreglRtlText,
-  null,
-  true
-)
+// Enable RTL text plugin for Hebrew/Arabic labels on the map
+let rtlPluginLoaded = false
+if (!rtlPluginLoaded) {
+  maplibregl.setRTLTextPlugin(
+    'https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js',
+    (err) => {
+      if (err) {
+        console.error('RTL plugin failed to load:', err)
+      } else {
+        console.log('RTL plugin loaded successfully')
+      }
+    },
+    true // lazy load
+  )
+  rtlPluginLoaded = true
+}
 
 export default function MapCanvas({ onReady, onDotClick, grayscale = false }) {
   const containerRef = useRef(null)
