@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Naama",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 5 }, "geometry": { "type": "Point", "coordinates": [ 732567.053221750771627, 3533803.230662369169295 ] } }
+]
+}
