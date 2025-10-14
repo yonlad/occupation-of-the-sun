@@ -18,23 +18,13 @@ function Home() {
   const [heroVisible, setHeroVisible] = useState(true)
   const scrollContainerRef = useRef(null)
   const landingRef = useRef(null)
+  const suppressIntroHeroOnceRef = useRef(false)
   
   const handleStartClick = () => {
-    if (!heroVisible) {
-      // Hero already hidden, just scroll
-      document.querySelector('[data-scene-id="farsia-village"]')?.scrollIntoView({ 
-        behavior: 'smooth' 
-      })
-    } else {
-      // Hide hero first, then scroll
-      setHeroVisible(false)
-      setTimeout(() => {
-        document.querySelector('[data-scene-id="farsia-village"]')?.scrollIntoView({ 
-          behavior: 'smooth' 
-        })
-      }, 400) // Wait for hero card fade out
-    }
+    suppressIntroHeroOnceRef.current = true
+    setHeroVisible(false)
     setStoryStarted(true)
+    document.querySelector('[data-scene-id="farsia-village"]')?.scrollIntoView({ behavior: 'smooth' })
   }
   
   const handleDotClick = () => {
@@ -51,10 +41,13 @@ function Home() {
         console.log('🚀 Auto-starting story!')
         setStoryStarted(true)
       }
-      // If user returned to intro and hasn't started story via click, show landing hero again
+      // If user returns to intro, show hero again unless suppressed for the immediate transition
       if (sceneId === 'intro') {
-        // Show landing hero again when returning to top
-        setHeroVisible(true)
+        if (suppressIntroHeroOnceRef.current) {
+          suppressIntroHeroOnceRef.current = false
+        } else {
+          setHeroVisible(true)
+        }
       }
     }, { root: landingRef.current || null })
     return () => unbind?.()

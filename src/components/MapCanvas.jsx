@@ -75,12 +75,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
             tileSize: 256,
           })
           map.setTerrain({ source: 'terrain', exaggeration: 1.3 })
-          map.addLayer({
-            id: 'sky',
-            type: 'sky',
-            paint: { 'sky-type': 'atmosphere', 'sky-atmosphere-sun-intensity': 10 },
-          })
-          console.log('MapCanvas: terrain and sky added')
+          console.log('MapCanvas: terrain added')
         } catch (e) {
           console.error('MapCanvas: terrain setup error:', e)
         }
