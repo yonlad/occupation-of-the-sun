@@ -4,8 +4,7 @@ import MapCanvas from './components/MapCanvas.jsx'
 import { useEffect, useState, useRef } from 'react'
 import farsiaSteps from './data/scenes/farsia.json'
 import { bindScrollScenes } from './map/sceneController.js'
-import { useParams } from 'react-router-dom'
-import { sites, videoPoints } from './data/sites.js'
+// removed unused imports for Story route and site registries
 
 function Layout({ children }) {
   return <div className="app">{children}</div>
@@ -16,7 +15,6 @@ function Home() {
   const [currentScene, setCurrentScene] = useState('intro')
   const [storyStarted, setStoryStarted] = useState(false)
   const [heroVisible, setHeroVisible] = useState(true)
-  const scrollContainerRef = useRef(null)
   const landingRef = useRef(null)
   const suppressIntroHeroOnceRef = useRef(false)
   
@@ -79,7 +77,7 @@ function Home() {
         />
       </div>
       
-      <div className="scroll-container" ref={scrollContainerRef}>
+      <div className="scroll-container">
         {/* Intro scene - landing hero */}
         <div data-scene-id="intro" className="scroll-section">
           {heroVisible && (
@@ -138,7 +136,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/story/:siteId" element={<StorySite />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </Layout>
@@ -146,23 +143,4 @@ export default function App() {
   )
 }
 
-function StorySite() {
-  const { siteId } = useParams()
-  const meta = sites[siteId]
-  const [mapInstance, setMapInstance] = useState(null)
-  useEffect(() => {
-    if (!mapInstance || !meta) return
-    mapInstance.easeTo({ center: undefined, zoom: 10, duration: 800 })
-  }, [mapInstance, meta])
-  return (
-    <div style={{ height: '100%', width: '100%' }}>
-      <div style={{height:'80vh'}}>
-        <MapCanvas onReady={setMapInstance} />
-      </div>
-      <div className="content">
-        <h2>{meta?.name || siteId}</h2>
-        <p>Interactive story placeholder for {meta?.name || siteId}.</p>
-      </div>
-    </div>
-  )
-}
+// Removed unused StorySite route and component placeholder
