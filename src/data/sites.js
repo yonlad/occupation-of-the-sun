@@ -31,5 +31,24 @@ export const sites = {
   },
 }
 
+export const farsiaSites = {
+  'farsia': {
+    id: 'farsia',
+    name: 'Al-Farsia',
+    pointGeoJson: '/data/geojson/A-Farsia.geojson',
+    tableCsv: null,
+  },
+}
+
+export const videoPoints = {
+  'farsia-video': {
+    id: 'farsia-video',
+    name: 'Al-Farsia Video',
+    pointGeoJson: '/data/geojson/Video_test.geojson',
+    videoUrl: null, // placeholder for now
+  },
+}
+
+
 
 

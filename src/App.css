@@ -3,11 +3,25 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.landing::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure scrolling works */
+.landing * {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .landing-header {
-  position: absolute;
+  position: fixed;
   top: 10px;
   max-width: 80%;
   height: 20px;
@@ -50,7 +64,7 @@
 }
 
 .landing-map {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 1;
 }
@@ -67,13 +81,19 @@
   border-radius: 16px;
   color: #fff;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  animation: fadeIn 0.4s ease;
+  pointer-events: auto; /* Hero cards are clickable */
 }
 
-.hero-card[hidden] {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-title {
@@ -114,6 +134,46 @@
   direction: rtl;
   text-align: right;
   unicode-bidi: embed;
+}
+
+/* Start button */
+.start-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.start-button:hover {
+  text-decoration: underline;
+}
+
+/* Scroll container and sections (click-through overlay) */
+.scroll-container {
+  position: relative;
+  z-index: 2;
+  pointer-events: none; /* allow clicks to pass to map */
+}
+
+.scroll-section {
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 130px 40px 40px 40px;
+  position: relative;
+  pointer-events: none; /* allow clicks to pass to map */
+}
+
+/* Hero cards are clickable */
+.scroll-section .hero-card {
+  pointer-events: auto;
 }
 
 /* Other pages */
