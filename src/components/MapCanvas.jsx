@@ -6,6 +6,7 @@ import { loadSitePoints, loadVideoPoints } from '../map/sourcesLayers.js'
 import Tooltip from './Tooltip.jsx'
 import Modal from './Modal.jsx'
 import DataTable from './DataTable.jsx'
+import VideoModal from './VideoModal.jsx'
 
 // Enable RTL text plugin for Hebrew/Arabic labels on the map
 let rtlPluginLoaded = false
@@ -29,6 +30,8 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
   const mapRef = useRef(null)
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' })
   const [modal, setModal] = useState({ open: false, title: '', csvUrl: '', type: 'data' })
+  const videoListenersAttachedRef = useRef(false)
+  const [videoModal, setVideoModal] = useState({ open: false, title: '', body: '' })
 
   useEffect(() => {
     const key = import.meta.env.VITE_MAPTILER_KEY
@@ -86,6 +89,11 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         await loadSitePoints(map, sites)
         console.log('MapCanvas: site points loaded')
         onReady?.(map)
+
+        // Also load video points using the same pattern so the red dot renders
+        console.log('MapCanvas: loading video points (initial)...')
+        await loadVideoPoints(map, videoPoints)
+        console.log('MapCanvas: video points loaded (initial)')
 
         map.on('mousemove', 'site-points', (e) => {
           const f = e.features?.[0]
@@ -216,7 +224,13 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     const handleVideoClick = (e) => {
       const f = e.features?.[0]
       if (!f) return
-      setModal({ open: true, title: 'Video Placeholder', type: 'video' })
+      const id = f.properties.pointId
+      const meta = videoPoints[id]
+      if (meta?.hero) {
+        setVideoModal({ open: true, title: meta.hero.title, body: meta.hero.body })
+      } else {
+        setVideoModal({ open: true, title: 'Video', body: '' })
+      }
     }
 
     // Setup event listeners after loading
@@ -228,9 +242,12 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
       }
       
       if (map.getLayer('video-point-layer')) {
+        // Ensure video points sit above others for interaction priority
+        try { map.moveLayer('video-point-layer') } catch {}
         map.on('mousemove', 'video-point-layer', handleVideoMouseMove)
         map.on('mouseleave', 'video-point-layer', handleVideoMouseLeave)
         map.on('click', 'video-point-layer', handleVideoClick)
+        videoListenersAttachedRef.current = true
       }
     }
 
@@ -270,6 +287,48 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     }
   }, [grayscale])
 
+  // Fallback: ensure video layer has listeners once available
+  useEffect(() => {
+    if (!mapRef.current) return
+    const map = mapRef.current
+    const tryAttach = () => {
+      if (videoListenersAttachedRef.current) return
+      if (!map.getLayer('video-point-layer')) return
+      try { map.moveLayer('video-point-layer') } catch {}
+      map.on('mousemove', 'video-point-layer', (e) => {
+        const f = e.features?.[0]
+        if (!f) { setTooltip(t => ({ ...t, visible: false })); return }
+        setTooltip({ visible: true, x: e.point.x, y: e.point.y, text: f.properties.name })
+        map.getCanvas().style.cursor = 'pointer'
+      })
+      map.on('mouseleave', 'video-point-layer', () => {
+        setTooltip(t => ({ ...t, visible: false }))
+        map.getCanvas().style.cursor = ''
+      })
+      map.on('click', 'video-point-layer', (e) => {
+        const f = e.features?.[0]
+        if (!f) return
+        const id = f.properties.pointId
+        const meta = videoPoints[id]
+        if (meta?.hero) {
+          setVideoModal({ open: true, title: meta.hero.title, body: meta.hero.body })
+        } else {
+          setVideoModal({ open: true, title: 'Video', body: '' })
+        }
+      })
+      videoListenersAttachedRef.current = true
+    }
+    map.on('idle', tryAttach)
+    return () => {
+      map.off('idle', tryAttach)
+      if (videoListenersAttachedRef.current && map.getLayer('video-point-layer')) {
+        map.off('mousemove', 'video-point-layer', () => {})
+        map.off('mouseleave', 'video-point-layer', () => {})
+        map.off('click', 'video-point-layer', () => {})
+      }
+    }
+  }, [])
+
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -299,6 +358,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
           </div>
         )}
       </Modal>
+      <VideoModal open={videoModal.open} title={videoModal.title} body={videoModal.body} onClose={() => setVideoModal(m => ({ ...m, open: false }))} />
     </div>
   )
 }

@@ -102,7 +102,7 @@ export async function loadVideoPoints(map, videoPoints) {
       type: 'circle',
       paint: {
         'circle-color': '#ff2a2a',
-        'circle-radius': 10,
+        'circle-radius': 8,
         'circle-stroke-color': '#ffffff',
         'circle-stroke-width': 2,
         'circle-opacity': 0.9,

@@ -70,7 +70,7 @@ function Home() {
       <div className="landing-map">
         <MapCanvas 
           onReady={setMapInstance} 
-          showVideoPoints={storyStarted} 
+          showVideoPoints={currentScene === 'farsia-village'} 
           grayscale={currentScene === 'intro'}
           onDotClick={handleDotClick}
           scrollContainer={landingRef.current}
@@ -105,16 +105,7 @@ function Home() {
           )}
         </div>
         
-        {/* Video scene */}
-        <div data-scene-id="farsia-video" className="scroll-section">
-          {storyStarted && (
-            <div className="hero-card">
-              <div className="hero-body">
-                <p>They own a few hundred sheep, and a small patch of agricultural land, where they grow barley to feed the sheep. Palestinian economic backbone of the tiny communities, they sell the lamb and sheep cheese in a nearby market. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
-              </div>
-            </div>
-          )}
-        </div>
+        {/* Removed separate video scene. Video opens via clicking the video point. */}
       </div>
     </div>
   )
