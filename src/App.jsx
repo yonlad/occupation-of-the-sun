@@ -104,8 +104,75 @@ function Home() {
             </div>
           )}
         </div>
+
+        {/* Settlements scene */}
+        <div data-scene-id="settlements" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Settlements</h1>
+              <div className="hero-body">
+                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Pogrom scene */}
+        <div data-scene-id="pogrom" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Pogrom</h1>
+              <div className="hero-body">
+                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Way to Mehola Fields scene */}
+        <div data-scene-id="mehola-fields" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Way to Mehola Fields</h1>
+              <div className="hero-body">
+                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Shdemot Mehola scene */}
+        <div data-scene-id="shdemot-mehola" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Shdemot Mehola</h1>
+            <div className="hero-body">
+                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Noam's Office scene */}
+        <div data-scene-id="noam-office" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Noam's Office</h1>
+            <div className="hero-body">
+                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Mehola Spawl Scene */}
+        <div data-scene-id="mehola-spawl" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Mehola Spawl</h1>
+            <div className="hero-body">
+                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+              </div>
+            </div>
+          )}
+        </div>
         
-        {/* Removed separate video scene. Video opens via clicking the video point. */}
       </div>
     </div>
   )

@@ -47,7 +47,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     }
     const hasKey = key && key !== 'YOUR_MAPTILER_KEY_HERE'
     const styleUrl = hasKey
-      ? `https://api.maptiler.com/maps/hybrid/style.json?key=${key}`
+      ? `https://api.maptiler.com/maps/satellite/style.json?key=${key}`
       : 'https://demotiles.maplibre.org/style.json'
     console.log('MapCanvas: using style URL:', styleUrl.replace(key || '', 'XXXX'))
     console.log('MapCanvas: creating map instance...')
