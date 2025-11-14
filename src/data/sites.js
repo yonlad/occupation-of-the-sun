@@ -49,8 +49,8 @@ export const videoPoints = {
     pointGeoJson: '/data/geojson/Video_test.geojson',
     videoUrl: null, // placeholder for now
     hero: {
-      title: 'Al - Farsia Story',
-      body: "They own a few hundred sheep, and a small patch of agricultural land, where they grow barley to feed the sheep. Palestinian economic backbone of the tiny communities, they sell the lamb and sheep cheese in a nearby market. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.",
+      title: '',
+      body: "They own a few hundred sheep, and a small patch of agricultural land, where they grow barley to feed the sheep. This is the economic backbone of the tiny community, they sell the lamb and sheep cheese, buy everything else they need from the markets. Both agriculture and grazing have become increasingly difficult because of pressure from Israeli settlers living nearby, who have cut Farsiya off its grazing land, and frequently damage the agricultural fields by grazing their own sheep flocks there.",
     },
   },
 }

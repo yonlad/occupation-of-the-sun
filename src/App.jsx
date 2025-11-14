@@ -85,8 +85,8 @@ function Home() {
               <h1 className="hero-title">The Occupation of the Sun</h1>
               <h2 className="hero-subtitle">Research Project Investigating the Energy Industry in the Israeli-Occupied West Bank</h2>
               <div className="hero-body">
-                <p>Since 2020, the Israeli government has been actively promoting the use of renewable energy. The Government has set ambitious targets to expand its solar energy capacity by 2030. They also recently adopted new policies to promote decentralized energy production, with solar energy playing a central role. To achieve this goal, Israel plans to increase its installed solar capacity to approximately 16GW by 2030. This expansion will involve the construction of large-scale solar farms and the promotion of rooftop solar installations across the country.</p>
-                <p>While Israel promotes its green energy initiatives and environmental policies, it systematically exploits Palestinian land, water, and natural resources. This exploitation, positioned as sustainable development, has fueled the growth of Israel's solar energy industry, while carrying out the expansion of Israeli settlements and the dispossession of Palestinian lands.</p>
+                <p>Since 2020, the Israeli government has been actively promoting the use of renewable energy. The government has set ambitious targets to expand its solar energy capacity by 2030. They aim to generate 30% of the nation's electricity from renewable sources by that year, with solar energy playing a central role. To achieve this goal, Israel plans to increase its installed solar capacity to approximately 17 gigawatts (GW) by 2030. This expansion will involve the development of large-scale solar farms, integration of energy storage solutions, and the promotion of rooftop solar installations across the country.</p>
+                <p>While Israel promotes its green energy initiatives and environmental policies, it systematically exploits Palestinian land, water, and natural resources. This exploitation, positioned as sustainable development, has fueled the growth of Israel’s solar energy industry, while carrying out a project of environmental violence against Palestinians. </p>
                 <p>This is a visual study, calling attention to the structural inequality in the energy sector in the occupied West Bank, and the international companies that play an integral part in implementation of the energy apartheid.</p>
               </div>
             </div>
@@ -99,7 +99,20 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Al - Farsia Story</h1>
               <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>Farsiya is located in Area C of the West Bank, under direct Israeli military and civil control. This means that, by law, Israel has an obligation to provide basic services to the Area's population, including electricity and water supplies. However, while the Occupation has indeed installed both water pipes and an electricity line just a few dozen meters away from Al Farsiya, it exists exclusively to serve the illegal settlements. The Occupation authorities, going against International Law regulating Military Occupation (TK LINK), have not connected the hamlet to the grid, leaving it to its own, scarce devices to build such basic services. For many Palestinian communities in Area C, which constitutes over 60 per cent of the West Bank, power generated through solar energy is the only source of available electricity.</p>
+              </div>
+            </div>
+          )}
+        </div>
+         {/* Al-Farsia village scene 2*/}
+         <div data-scene-id="farsia-village-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Al - Farsia Story</h1>
+              <div className="hero-body">
+                <p>
+                The word “village” may be an overstatement. Farsiya Naba’a al-Ghazzal is a hamlet in the Israeli-occupied Jordan Valley. Farsiya is home to around 20 people, all belonging to the Daraghme family. According to Ahmad, they have lived in this location for 47 years. Palestinian shepherding communities used to move around a lot, sometimes to find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the Jordan Valley have been expelled already. Farsiya is one of the last ones still standing.
+                </p>
               </div>
             </div>
           )}
@@ -111,7 +124,10 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Settlements</h1>
               <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>“There's the settlers, there’s the army”, says Ahmad, “Every other day they come to attack us.” Ahmad is 32 years old, and serves as the informal leader of the community. On September 9th 2023, a month before October 7th, Ahmad was grazing his sheep on his traditional grazing lands near his summer camp. He was accompanied by two members of the human rights advocacy organisation Jordan Valley Activists (JVA), who regularly come with Ahmad to ensure his safety. This day it didn’t help. Nine masked settlers descended upon them, and attacked Ahmad and the activists. They broke Ahmad’s hand with an iron bar, leaving him in a cast for weeks. Israeli police refused to investigate the crime.
+                </p>
+                <p>Across the road from it is the Israeli settlement Rotem built in 1983. Rotem prides itself on being a “green” settlement, using recycling and environment-friendly construction. Adjacent to Rotem is an outpost managed by Didi Amosi and his family, called Tene Yarok farm. The outpost terrorises the village of Farsiya on a daily basis, regularly invading the village, assaulting residents and destroying property. A bit further away sits the settlement Shadmot Mehola, another centre of settler terror in the area. Its residents also have a history of attacking Palestinian residents and activists, and destroying property. This settlement also houses the Shadmot Mehola solar panel field.
+                </p>
               </div>
             </div>
           )}
@@ -122,7 +138,9 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Pogrom</h1>
               <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>On April 14, 2024, a group of masked settlers left the settlement of Mehola shortly after midnight. Moving on foot, they passed near the outpost of Rotem and crossed Highway 578, the main north–south road in the Jordan Valley. From there they continued toward the Palestinian village of Farsiya.</p>
+                <p>Most residents were asleep when the settlers entered the community. Witnesses said the group split into smaller clusters, some approaching houses while others went toward the area where solar panels were kept. During the incursion, the settlers forced their way into the community, attacked residents, set fire to a car and destroyed nearly all of the solar panels that supply electricity to the village.</p>
+                <p>The attack lasted more than an hour before the settlers withdrew in the direction they had come. No arrests were made, and the Israeli police later confirmed they would not open an investigation.</p>
               </div>
             </div>
           )}
@@ -133,7 +151,8 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Way to Mehola Fields</h1>
               <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>While Palestinian communities are struggling to survive with basic energy supplies, international companies profit from powering Israeli settlements. One of these settlements, Shadmot Mehola, is just a 10-minute ride north of Farsiya. </p>
+                <p>As we drive up the paved road, in contrast to the dirt road leading up to Farsiya, it is impossible to miss the half-kilometre stretch of gleaming solar panels. These panels are directly connected to the Israel Electric Corporation (IEC), the national electricity company, as explained by Noam Bigon, administrator of the settlement. </p>
               </div>
             </div>
           )}
@@ -144,7 +163,8 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Shdemot Mehola</h1>
             <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>The settlement was established in 1979 as part of a broader effort to create Israeli military infrastructure along the Jordanian border. Today, Shadmot Mehola is a civilian religious community, comprising approximately 650 residents, including farmers, teachers, lawyers, and other professionals. </p>
+                <p>Four soldiers man the large electric gate leading into the settlement. Their wary expressions fade once they hear us speak Hebrew. Inside the gate, the desert topography of the Jordan Valley becomes unrecognizable: flourishing - albeit foreign - trees line the sidewalks, green grass surrounds neat, tiled-roofed houses, and even the dusty air seems clearer beyond the electric fence.</p>
               </div>
             </div>
           )}
@@ -156,7 +176,7 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Noam's Office</h1>
             <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>Noam welcomes us with tea and coffee in his air-conditioned office, offering seats in front of a large map of the settlement. He points out the communal buildings: synagogues, community center, school, swimming pool, and territory allocated for 120 pre-fabricated residential units. These single-family homes can be assembled in just two weeks, he says proudly: “Families from all over the country want to live here… there’s a calm environment.”</p>
               </div>
             </div>
           )}
@@ -167,7 +187,9 @@ function Home() {
             <div className="hero-card">
               <h1 className="hero-title">Mehola Spawl</h1>
             <div className="hero-body">
-                <p>The word "village" may be an overstatement. Farj'a Nabaa al-Ghazzal is a Bedouin community, where a group of Palestinian families settled around 20 people, all belonging to the Harashina family. According to Ahmed, they have lived in this location for 47 years - they settled in this area because it was a good place for agricultural lands and find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the occupied West Bank also face an extremely difficult reality and are under the standing.</p>
+                <p>Tracing his finger down to the road we arrived from, Noam indicates the Shadmot Mehola Solar Field. Built in 2016, it spans over 50,000 square meters with a capacity of 5 MW, an investment of 40 million shekels.</p>
+                <p>In 1997, this land was taken from the Palestinian Tubas governorate, and transferred to the settlement by the World Zionist Organisation. In 2023 the Civil Administration outlines a new “solar gate” that will encircle the entire settlement. “We are doing an innovative project,” Noam explains. “The settlement gate itself will be made of solar panels. It will produce its own security lighting. Come back in two years and you will see.”</p>
+                <p>The Shadmot Mehola Solar Field was approved under a special arrangement by the Ministry of Energy and the Electricity Authority for entrepreneurs operating in the occupied West Bank. As part of this scheme, the state guaranteed that it would purchase electricity from the field at a relatively high price of 0.54–0.51 shekels per kWh for at least 20 years.</p>
               </div>
             </div>
           )}
