@@ -6,15 +6,25 @@ import farsiaSteps from './data/scenes/scenes.json'
 import { bindScrollScenes } from './map/sceneController.js'
 // removed unused imports for Story route and site registries
 
+// Configure which site IDs (see data/sites.js) should be visible per scene.
+// Each entry can reset the current dots, add new ones, or remove some while leaving others.
+const sceneDotScript = {
+  intro: { reset: true, show: ['kalia', 'naama', 'petzael', 'netiv-hagdud'] },
+  'farsia-village': { hide: ['kalia', 'naama', 'petzael', 'netiv-hagdud'], show: ['farsia'] },
+  'farsia-video': { hide: [], show: [] },
+  settlements: { show: [] },
+}
+
 function Layout({ children }) {
   return <div className="app">{children}</div>
 }
 
-function Home() {
+function Home() { 
   const [mapInstance, setMapInstance] = useState(null)
   const [currentScene, setCurrentScene] = useState('intro')
   const [storyStarted, setStoryStarted] = useState(false)
   const [heroVisible, setHeroVisible] = useState(true)
+  const [visibleSiteIds, setVisibleSiteIds] = useState([])
   const landingRef = useRef(null)
   const suppressIntroHeroOnceRef = useRef(false)
   
@@ -55,6 +65,25 @@ function Home() {
   useEffect(() => {
     console.log('🔄 State update - storyStarted:', storyStarted, 'currentScene:', currentScene)
   }, [storyStarted, currentScene])
+
+  useEffect(() => {
+    const script = sceneDotScript[currentScene]
+    if (!script) return
+    setVisibleSiteIds((prev) => {
+      let next = script.reset ? [] : [...prev]
+      if (script.hide?.length) {
+        next = next.filter((id) => !script.hide.includes(id))
+      }
+      if (script.show?.length) {
+        for (const id of script.show) {
+          if (!next.includes(id)) {
+            next.push(id)
+          }
+        }
+      }
+      return next
+    })
+  }, [currentScene])
   
   // No-op: overlay doesn't need artificial height; scenes equal 100vh sections
   
@@ -74,6 +103,7 @@ function Home() {
           grayscale={currentScene === 'intro'}
           onDotClick={handleDotClick}
           scrollContainer={landingRef.current}
+          visibleSiteIds={visibleSiteIds}
         />
       </div>
       

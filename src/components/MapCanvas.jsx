@@ -25,13 +25,35 @@ if (!rtlPluginLoaded) {
   rtlPluginLoaded = true
 }
 
-export default function MapCanvas({ onReady, onDotClick, grayscale = false, showVideoPoints = false, scrollContainer = null }) {
+export default function MapCanvas({ onReady, onDotClick, grayscale = false, showVideoPoints = false, scrollContainer = null, visibleSiteIds = null }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' })
   const [modal, setModal] = useState({ open: false, title: '', csvUrl: '', type: 'data' })
+  const latestVisibleSiteIdsRef = useRef(visibleSiteIds)
   // const videoListenersAttachedRef = useRef(false)
   // const [videoModal, setVideoModal] = useState({ open: false, title: '', body: '' })
+
+  const applySiteFilter = (map, ids) => {
+    if (!map) return
+    const layerId = 'site-points'
+    if (!map.getLayer(layerId)) return
+    if (ids == null) {
+      map.setFilter(layerId, null)
+      return
+    }
+    if (!ids.length) {
+      map.setFilter(layerId, ['==', ['get', 'siteId'], '__none__'])
+      return
+    }
+    map.setFilter(layerId, ['in', 'siteId', ...ids])
+  }
+
+  useEffect(() => {
+    latestVisibleSiteIdsRef.current = visibleSiteIds
+    if (!mapRef.current) return
+    applySiteFilter(mapRef.current, visibleSiteIds)
+  }, [visibleSiteIds])
 
   useEffect(() => {
     const key = import.meta.env.VITE_MAPTILER_KEY
@@ -88,6 +110,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         console.log('MapCanvas: loading site points...')
         await loadSitePoints(map, sites)
         console.log('MapCanvas: site points loaded')
+        applySiteFilter(map, latestVisibleSiteIdsRef.current)
         onReady?.(map)
 
         /*
