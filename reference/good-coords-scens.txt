@@ -1,0 +1,5 @@
+Intro coords
+http://localhost:5173/#8.93/32.069/34.9855/35.3/59
+
+al farsia:
+http://localhost:5173/#16.19/32.343462/35.507334/7.5/1
