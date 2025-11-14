@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Noam's Office",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "Point", "coordinates": [ 738252.5743737252, 3581665.415377153 ] } }
+]
+}

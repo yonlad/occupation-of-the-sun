@@ -30,8 +30,8 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
   const mapRef = useRef(null)
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' })
   const [modal, setModal] = useState({ open: false, title: '', csvUrl: '', type: 'data' })
-  const videoListenersAttachedRef = useRef(false)
-  const [videoModal, setVideoModal] = useState({ open: false, title: '', body: '' })
+  // const videoListenersAttachedRef = useRef(false)
+  // const [videoModal, setVideoModal] = useState({ open: false, title: '', body: '' })
 
   useEffect(() => {
     const key = import.meta.env.VITE_MAPTILER_KEY
@@ -90,11 +90,13 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         console.log('MapCanvas: site points loaded')
         onReady?.(map)
 
+        /*
         // Also load video points using the same pattern so the red dot renders
         console.log('MapCanvas: loading video points (initial)...')
         await loadVideoPoints(map, videoPoints)
         console.log('MapCanvas: video points loaded (initial)')
-
+        */
+ 
         map.on('mousemove', 'site-points', (e) => {
           const f = e.features?.[0]
           if (!f) { setTooltip(t => ({ ...t, visible: false })); return }
@@ -169,7 +171,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
       canvas.removeEventListener('touchend', onTouchEnd)
     }
   }, [scrollContainer])
-
+/*
   // Load farsia and video points when showVideoPoints becomes true
   useEffect(() => {
     if (!mapRef.current || !showVideoPoints) return
@@ -275,7 +277,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
       }
     }
   }, [showVideoPoints])
-
+*/
   // Apply grayscale filter when grayscale prop changes
   useEffect(() => {
     if (!mapRef.current) return
@@ -287,6 +289,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     }
   }, [grayscale])
 
+  /*
   // Fallback: ensure video layer has listeners once available
   useEffect(() => {
     if (!mapRef.current) return
@@ -328,7 +331,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
       }
     }
   }, [])
-
+*/
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -358,7 +361,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
           </div>
         )}
       </Modal>
-      <VideoModal open={videoModal.open} title={videoModal.title} body={videoModal.body} onClose={() => setVideoModal(m => ({ ...m, open: false }))} />
+      {/*<VideoModal open={videoModal.open} title={videoModal.title} body={videoModal.body} onClose={() => setVideoModal(m => ({ ...m, open: false }))} />*/}
     </div>
   )
 }

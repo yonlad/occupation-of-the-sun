@@ -23,11 +23,35 @@ export const sites = {
     pointGeoJson: '/data/geojson/Petzael.geojson',
     tableCsv: '/data/tables/OTS_Solar Fields - Petzael.csv',
   },
+  'shdemot-mehola-solar': {
+    id: 'shdemot-mehola-solar',
+    name: 'Shdemot Mehola Solar Field',
+    pointGeoJson: '/data/geojson/Shdemot Mehola Solar.geojson',
+    tableCsv: null,
+  },
   'shdemot-mehola': {
     id: 'shdemot-mehola',
     name: 'Shdemot Mehola',
     pointGeoJson: '/data/geojson/Shdemot Mehola.geojson',
     tableCsv: '/data/tables/OTS_Solar Fields - Shdemot Mehola.csv',
+  },
+  'rotem': {
+    id: 'rotem',
+    name: 'Rotem',
+    pointGeoJson: '/data/geojson/Rotem.geojson',
+    tableCsv: null,
+  },
+  'farsia': {
+    id: 'farsia',
+    name: 'Al-Farsia',
+    pointGeoJson: '/data/geojson/A-Farsia.geojson',
+    tableCsv: null,
+  },
+  'noam-s-office': {
+    id: 'noam-s-office',
+    name: "Noam's Office",
+    pointGeoJson: '/data/geojson/Noam\'s Office.geojson',
+    tableCsv: null,
   },
 }
 
