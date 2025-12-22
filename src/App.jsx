@@ -9,10 +9,10 @@ import { bindScrollScenes } from './map/sceneController.js'
 // Configure which site IDs (see data/sites.js) should be visible per scene.
 // Each entry can reset the current dots, add new ones, or remove some while leaving others.
 const sceneDotScript = {
-  intro: { reset: true, show: ['kalia', 'naama', 'petzael', 'netiv-hagdud'] },
-  'farsia-village': { hide: ['kalia', 'naama', 'petzael', 'netiv-hagdud'], show: ['farsia'] },
-  'farsia-video': { hide: [], show: [] },
-  settlements: { show: [] },
+  intro: { reset: true, show: ['farsia', 'naama', 'nueima', 'shdemot-mehola'], hide: ['naama-solar-fields', 'nueima-solar-fields', 'rotem'] },
+  'farsia-village': { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: ['farsia'] },
+  'farsia-video': { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: [] },
+  settlements: { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: [] },
 }
 
 function Layout({ children }) {
@@ -90,10 +90,12 @@ function Home() {
   return (
     <div className="landing" ref={landingRef}>
       <header className="landing-header">
-        <div className="logo">logo</div>
+        <div className="logo">
+          <img src="/assets/Camel.png" alt="Camel logo" />
+        </div>
         <nav className="landing-nav">
-          <Link to="/about">About</Link>
-          <button onClick={handleStartClick} className="start-button">Start</button>
+          <Link target="_blank" to="https://caravancollective.org/"><span style={{fontFamily: 'El Messiri'}}>Caravan</span> <span style={{fontFamily: 'Suisse Intl'}}>Collective</span></Link>
+          <button style={{fontFamily: 'Suisse Intl'}} onClick={handleStartClick} className="start-button">Start</button>
         </nav>
       </header>
       <div className="landing-map">
@@ -115,9 +117,6 @@ function Home() {
               <h1 className="hero-title">The Occupation of the Sun</h1>
               <h2 className="hero-subtitle">Research Project Investigating the Energy Industry in the Israeli-Occupied West Bank</h2>
               <div className="hero-body">
-                <p>Since 2020, the Israeli government has been actively promoting the use of renewable energy. The government has set ambitious targets to expand its solar energy capacity by 2030. They aim to generate 30% of the nation's electricity from renewable sources by that year, with solar energy playing a central role. To achieve this goal, Israel plans to increase its installed solar capacity to approximately 17 gigawatts (GW) by 2030. This expansion will involve the development of large-scale solar farms, integration of energy storage solutions, and the promotion of rooftop solar installations across the country.</p>
-                <p>While Israel promotes its green energy initiatives and environmental policies, it systematically exploits Palestinian land, water, and natural resources. This exploitation, positioned as sustainable development, has fueled the growth of Israel’s solar energy industry, while carrying out a project of environmental violence against Palestinians. </p>
-                <p>This is a visual study, calling attention to the structural inequality in the energy sector in the occupied West Bank, and the international companies that play an integral part in implementation of the energy apartheid.</p>
               </div>
             </div>
           )}

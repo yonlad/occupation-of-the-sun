@@ -1,12 +1,17 @@
 import proj4 from 'proj4'
+import maplibregl from 'maplibre-gl'
 
 // UTM zone 36N (EPSG:32636) approximates the provided CRS 32236 variant
 const utm36 = '+proj=utm +zone=36 +datum=WGS84 +units=m +no_defs'
 const wgs84 = '+proj=longlat +datum=WGS84 +no_defs'
 
-export async function loadSitePoints(map, sites, sourceName = 'sites', layerName = 'site-points', fitBounds = true) {
+// Path to custom map pin SVG
+const PIN_SVG_URL = '/assets/Map Pin.svg'
+
+export async function loadSitePoints(map, sites, sourceName = 'sites', layerName = 'site-points', fitBounds = true, pinSize = 32) {
   const features = []
-  console.log('loadSitePoints: loading', Object.keys(sites).length, 'sites for', sourceName)
+  const markers = []
+  console.log('loadSitePoints: loading', Object.keys(sites).length, 'sites for', sourceName, 'pinSize:', pinSize)
   for (const [siteId, meta] of Object.entries(sites)) {
     console.log(`loadSitePoints: fetching ${siteId} from ${meta.pointGeoJson}`)
     const gj = await fetch(meta.pointGeoJson).then(r => r.json())
@@ -27,8 +32,23 @@ export async function loadSitePoints(map, sites, sourceName = 'sites', layerName
       properties: { ...(featureRaw.properties || {}), siteId, name: meta.name },
     }
     features.push(feature)
+
+    // Create HTML marker with custom SVG pin (outside canvas, unaffected by grayscale)
+    const el = document.createElement('div')
+    el.className = 'map-pin-marker'
+    el.innerHTML = `<img src="${PIN_SVG_URL}" alt="pin" style="width:${pinSize}px;height:auto;display:block;" />`
+    el.style.cursor = 'pointer'
+    el.dataset.siteId = siteId
+    el.dataset.name = meta.name
+
+    const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+      .setLngLat(lonlat)
+      .addTo(map)
+    markers.push({ marker, siteId, name: meta.name, meta })
   }
   console.log('loadSitePoints: total features:', features.length)
+
+  // Still add source/layer for potential queries (invisible)
   const collection = { type: 'FeatureCollection', features }
   if (!map.getSource(sourceName)) {
     map.addSource(sourceName, { type: 'geojson', data: collection })
@@ -42,13 +62,15 @@ export async function loadSitePoints(map, sites, sourceName = 'sites', layerName
       source: sourceName,
       type: 'circle',
       paint: {
-        'circle-color': '#ff2a2a',
+        'circle-color': '#ff0000',
         'circle-radius': 8,
         'circle-stroke-color': '#ffffff',
         'circle-stroke-width': 2,
+        'circle-opacity': 0, // invisible - we use HTML markers instead
+        'circle-stroke-opacity': 0, // hide stroke too
       },
     })
-    console.log('loadSitePoints: layer added:', layerName)
+    console.log('loadSitePoints: layer added (invisible):', layerName)
   }
 
   // Fit map to all points (only if requested)
@@ -62,6 +84,9 @@ export async function loadSitePoints(map, sites, sourceName = 'sites', layerName
     console.log('loadSitePoints: fitting bounds:', bounds)
     map.fitBounds(bounds, { padding: 80, duration: 1200 })
   }
+
+  // Return markers so caller can attach event listeners
+  return markers
 }
 
 export async function loadVideoPoints(map, videoPoints) {

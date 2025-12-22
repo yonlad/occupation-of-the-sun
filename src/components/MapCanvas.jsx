@@ -25,35 +25,16 @@ if (!rtlPluginLoaded) {
   rtlPluginLoaded = true
 }
 
-export default function MapCanvas({ onReady, onDotClick, grayscale = false, showVideoPoints = false, scrollContainer = null, visibleSiteIds = null }) {
+export default function MapCanvas({ onReady, onDotClick, grayscale = false, showVideoPoints = false, scrollContainer = null, visibleSiteIds = [] }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
+  const markersRef = useRef([])
+  const visibleSiteIdsRef = useRef(visibleSiteIds) // Track current value for async access
+  const [markersReady, setMarkersReady] = useState(false) // Track when markers are loaded
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' })
   const [modal, setModal] = useState({ open: false, title: '', csvUrl: '', type: 'data' })
-  const latestVisibleSiteIdsRef = useRef(visibleSiteIds)
   // const videoListenersAttachedRef = useRef(false)
   // const [videoModal, setVideoModal] = useState({ open: false, title: '', body: '' })
-
-  const applySiteFilter = (map, ids) => {
-    if (!map) return
-    const layerId = 'site-points'
-    if (!map.getLayer(layerId)) return
-    if (ids == null) {
-      map.setFilter(layerId, null)
-      return
-    }
-    if (!ids.length) {
-      map.setFilter(layerId, ['==', ['get', 'siteId'], '__none__'])
-      return
-    }
-    map.setFilter(layerId, ['in', 'siteId', ...ids])
-  }
-
-  useEffect(() => {
-    latestVisibleSiteIdsRef.current = visibleSiteIds
-    if (!mapRef.current) return
-    applySiteFilter(mapRef.current, visibleSiteIds)
-  }, [visibleSiteIds])
 
   useEffect(() => {
     const key = import.meta.env.VITE_MAPTILER_KEY
@@ -107,10 +88,43 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
       }
 
       try {
-        console.log('MapCanvas: loading site points...')
-        await loadSitePoints(map, sites)
+        // Use smaller pins on landing page (grayscale mode)
+        const pinSize = grayscale ? 16 : 23
+        console.log('MapCanvas: loading site points with pinSize:', pinSize, 'grayscale:', grayscale)
+        const markers = await loadSitePoints(map, sites, 'sites', 'site-points', true, pinSize)
+        markersRef.current = markers
         console.log('MapCanvas: site points loaded')
-        applySiteFilter(map, latestVisibleSiteIdsRef.current)
+
+        // Attach event listeners to HTML marker elements
+        markers.forEach(({ marker, siteId, name, meta }) => {
+          const el = marker.getElement()
+          el.addEventListener('mouseenter', (e) => {
+            const rect = el.getBoundingClientRect()
+            const mapRect = containerRef.current.getBoundingClientRect()
+            setTooltip({ visible: true, x: rect.left - mapRect.left + rect.width / 2, y: rect.top - mapRect.top, text: name })
+          })
+          el.addEventListener('mouseleave', () => {
+            setTooltip(t => ({ ...t, visible: false }))
+          })
+          el.addEventListener('click', () => {
+            setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv, type: 'data' })
+            onDotClick?.()
+          })
+        })
+
+        // Apply initial visibility based on current visibleSiteIds
+        const currentVisible = visibleSiteIdsRef.current
+        console.log('MapCanvas: applying initial visibility, visibleSiteIds:', currentVisible)
+        markers.forEach(({ marker, siteId }) => {
+          const el = marker.getElement()
+          if (currentVisible.includes(siteId)) {
+            el.style.display = ''
+          } else {
+            el.style.display = 'none'
+          }
+        })
+        
+        setMarkersReady(true)
         onReady?.(map)
 
         /*
@@ -119,25 +133,6 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         await loadVideoPoints(map, videoPoints)
         console.log('MapCanvas: video points loaded (initial)')
         */
- 
-        map.on('mousemove', 'site-points', (e) => {
-          const f = e.features?.[0]
-          if (!f) { setTooltip(t => ({ ...t, visible: false })); return }
-          setTooltip({ visible: true, x: e.point.x, y: e.point.y, text: f.properties.name })
-          map.getCanvas().style.cursor = 'pointer'
-        })
-        map.on('mouseleave', 'site-points', () => {
-          setTooltip(t => ({ ...t, visible: false }))
-          map.getCanvas().style.cursor = ''
-        })
-        map.on('click', 'site-points', (e) => {
-          const f = e.features?.[0]
-          if (!f) return
-          const id = f.properties.siteId
-          const meta = sites[id]
-          setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv, type: 'data' })
-          onDotClick?.()
-        })
       } catch (e) {
         console.error('MapCanvas: site points error:', e)
       }
@@ -301,7 +296,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     }
   }, [showVideoPoints])
 */
-  // Apply grayscale filter when grayscale prop changes
+  // Apply grayscale filter and update marker sizes when grayscale prop changes
   useEffect(() => {
     if (!mapRef.current) return
     const canvas = mapRef.current.getCanvas()
@@ -310,7 +305,34 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     } else {
       canvas.style.filter = ''
     }
+    // Update marker pin sizes based on grayscale mode
+    const pinSize = grayscale ? 16 : 23
+    markersRef.current.forEach(({ marker }) => {
+      const img = marker.getElement().querySelector('img')
+      if (img) {
+        img.style.width = `${pinSize}px`
+      }
+    })
   }, [grayscale])
+
+  // Keep ref in sync with prop for async access
+  useEffect(() => {
+    visibleSiteIdsRef.current = visibleSiteIds
+  }, [visibleSiteIds])
+
+  // Show/hide markers based on visibleSiteIds (only after markers are ready)
+  useEffect(() => {
+    if (!markersReady) return
+    console.log('MapCanvas: updating visibility, visibleSiteIds:', visibleSiteIds)
+    markersRef.current.forEach(({ marker, siteId }) => {
+      const el = marker.getElement()
+      if (visibleSiteIds.includes(siteId)) {
+        el.style.display = ''
+      } else {
+        el.style.display = 'none'
+      }
+    })
+  }, [visibleSiteIds, markersReady])
 
   /*
   // Fallback: ensure video layer has listeners once available

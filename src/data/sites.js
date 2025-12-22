@@ -1,16 +1,37 @@
 export const sites = {
+  /* 
   'kalia': {
     id: 'kalia',
     name: 'Kalia',
     pointGeoJson: '/data/geojson/Kalia.geojson',
     tableCsv: '/data/tables/OTS_Solar Fields - Kalia.csv',
   },
-  'naama': {
-    id: 'naama',
-    name: 'Naama',
-    pointGeoJson: '/data/geojson/Naama.geojson',
-    tableCsv: '/data/tables/OTS_Solar Fields - Naama.csv',
+  */
+  'nueima-solar-fields': {
+    id: 'nueima-solar-fields',
+    name: 'Nu\'eima Solar Fields',
+    pointGeoJson: '/data/geojson/Nueima Solar Fields.geojson',
+    tableCsv: null,
   },
+  'nueima': {
+    id: 'nueima',
+    name: 'Nu\'eima',
+    pointGeoJson: '/data/geojson/Nueima.geojson',
+    tableCsv: null,
+  },
+  'naama' :{
+    id:'naama',
+    name: 'Na\'ama',
+    pointGeoJson: 'data/geojson/Naama.geojson',
+    tableCsv: null,
+  },
+  'naama-solar-fields': {
+    id: 'naama-solar-fields',
+    name: 'Na\'ama Solar Fields',
+    pointGeoJson: '/data/geojson/Naama Solar Fields.geojson',
+    tableCsv: null,
+  },
+  /*
   'netiv-hagdud': {
     id: 'netiv-hagdud',
     name: 'Netiv HaGdud',
@@ -23,6 +44,7 @@ export const sites = {
     pointGeoJson: '/data/geojson/Petzael.geojson',
     tableCsv: '/data/tables/OTS_Solar Fields - Petzael.csv',
   },
+  */
   'shdemot-mehola-solar': {
     id: 'shdemot-mehola-solar',
     name: 'Shdemot Mehola Solar Field',
@@ -33,7 +55,7 @@ export const sites = {
     id: 'shdemot-mehola',
     name: 'Shdemot Mehola',
     pointGeoJson: '/data/geojson/Shdemot Mehola.geojson',
-    tableCsv: '/data/tables/OTS_Solar Fields - Shdemot Mehola.csv',
+    tableCsv: null,
   },
   'rotem': {
     id: 'rotem',

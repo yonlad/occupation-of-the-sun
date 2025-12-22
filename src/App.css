@@ -35,16 +35,22 @@
   padding: 16px 24px;
   background: rgba(30, 30, 30, 0.7);
   backdrop-filter: blur(8px);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .logo {
-  font-size: 14px;
-  font-weight: 400;
-  color: #fff;
-  padding: 8px 16px;
-  background: rgba(60, 60, 60, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  /*background: rgba(60, 60, 60, 0.9);*/
   border-radius: 20px;
+}
+
+.logo img {
+  display: block;
+  height: 24px;
+  width: auto;
 }
 
 .landing-nav {
@@ -54,9 +60,10 @@
 }
 
 .landing-nav a {
-  color: #fff;
+  color: var(--body-color);
   text-decoration: none;
   font-weight: 400;
+  font-family: var(--body-font);
 }
 
 .landing-nav a:hover {
@@ -78,8 +85,8 @@
   background: rgba(40, 40, 42, 0.7);
   backdrop-filter: blur(8px);
   padding: 40px;
-  border-radius: 16px;
-  color: #fff;
+  border-radius: 10px;
+  color: var(--body-color);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
   animation: fadeIn 0.4s ease;
   pointer-events: auto; /* Hero cards are clickable */
@@ -102,6 +109,8 @@
   margin: 0 0 16px 0;
   line-height: 1.15;
   letter-spacing: -0.02em;
+  font-family: var(--title-font);
+  color: var(--title-color);
 }
 
 .hero-subtitle {
@@ -109,13 +118,15 @@
   font-weight: 400;
   margin: 0 0 24px 0;
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--body-color);
+  font-family: var(--body-font);
 }
 
 .hero-body {
   font-size: 14px;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--body-color);
+  font-family: var(--body-font);
 }
 
 .hero-body p {
@@ -140,12 +151,12 @@
 .start-button {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--body-color);
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
   padding: 0;
-  font-family: inherit;
+  font-family: var(--body-font);
 }
 
 .start-button:hover {
@@ -194,7 +205,7 @@
   backdrop-filter: blur(8px);
   padding: 40px;
   border-radius: 16px;
-  color: #fff;
+  color: var(--body-color);
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
   animation: fadeIn 0.4s ease;
   pointer-events: auto; /* Hero cards are clickable */

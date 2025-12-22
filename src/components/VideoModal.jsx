@@ -12,7 +12,8 @@ export default function VideoModal({ open, onClose, title, body, children }) {
       <div 
         style={{
           background: 'rgba(40, 40, 42, 0.7)',
-          color: '#fff',
+          color: 'var(--body-color)',
+          fontFamily: 'var(--body-font)',
           minWidth: 320,
           maxWidth: 560,
           width: '90vw',
@@ -25,7 +26,7 @@ export default function VideoModal({ open, onClose, title, body, children }) {
         onClick={(e)=>e.stopPropagation()}
       >
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
-          <h3 style={{margin:0, fontSize: 28}}>{title}</h3>
+          <h3 style={{margin:0, fontSize: 28, fontFamily: 'var(--title-font)', color: 'var(--title-color)'}}>{title}</h3>
           <button onClick={onClose} aria-label="Close">✕</button>
         </div>
         <div style={{ 
