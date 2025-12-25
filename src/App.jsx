@@ -135,7 +135,7 @@ function Home() {
     <div className="landing" ref={landingRef}>
       <header className="landing-header">
         <div className="logo">
-          <img src="/assets/Camel.png" alt="Camel logo" />
+          <img src={`${import.meta.env.BASE_URL}assets/Camel.png`} alt="Camel logo" />
         </div>
         <div className="chapter-nav">
           <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('intro')} className="start-button">Start</button>
@@ -222,7 +222,7 @@ function Home() {
                     onPlay={handleVideoPlay}
                     onPause={handleVideoPause}
                   >
-                    <source src="/assets/videos/Naama-video.mp4" type="video/mp4" />
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Naama-video.mp4`} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   {!isVideoPlaying && (
@@ -282,7 +282,7 @@ function Home() {
                     onPlay={handleVideoPlay}
                     onPause={handleVideoPause}
                   >
-                    <source src="/assets/videos/Naama-video.mp4" type="video/mp4" />
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Naama-video.mp4`} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   {!isVideoPlaying && (
@@ -377,7 +377,7 @@ function Home() {
                     onPlay={handleVideoPlay}
                     onPause={handleVideoPause}
                   >
-                    <source src="/assets/videos/Shdemot-video.mp4" type="video/mp4" />
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Shdemot-video.mp4`} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   {!isVideoPlaying && (
@@ -445,7 +445,7 @@ function Home() {
                     onPlay={handleVideoPlay}
                     onPause={handleVideoPause}
                   >
-                    <source src="/assets/videos/Shdemot-solar-video.mp4" type="video/mp4" />
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Shdemot-solar-video.mp4`} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   {!isVideoPlaying && (
@@ -550,7 +550,7 @@ function About() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

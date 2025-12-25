@@ -98,7 +98,7 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
 
         map.addSource('west-bank-overlay', {
           type: 'image',
-          url: '/assets/map_resized2.png',
+          url: `${import.meta.env.BASE_URL}assets/map_resized2.png`,
           coordinates: westBankCoords
         })
 

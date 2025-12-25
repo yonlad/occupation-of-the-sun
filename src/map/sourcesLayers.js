@@ -5,16 +5,19 @@ import maplibregl from 'maplibre-gl'
 const utm36 = '+proj=utm +zone=36 +datum=WGS84 +units=m +no_defs'
 const wgs84 = '+proj=longlat +datum=WGS84 +no_defs'
 
-// Path to custom map pin SVG
-const PIN_SVG_URL = '/assets/Map Pin.svg'
+// Path to custom map pin SVG - use BASE_URL for GitHub Pages compatibility
+const PIN_SVG_URL = `${import.meta.env.BASE_URL}assets/Map Pin.svg`
 
 export async function loadSitePoints(map, sites, sourceName = 'sites', layerName = 'site-points', fitBounds = true, pinSize = 32) {
   const features = []
   const markers = []
   console.log('loadSitePoints: loading', Object.keys(sites).length, 'sites for', sourceName, 'pinSize:', pinSize)
   for (const [siteId, meta] of Object.entries(sites)) {
-    console.log(`loadSitePoints: fetching ${siteId} from ${meta.pointGeoJson}`)
-    const gj = await fetch(meta.pointGeoJson).then(r => r.json())
+    const geoJsonUrl = meta.pointGeoJson.startsWith('/') 
+      ? `${import.meta.env.BASE_URL}${meta.pointGeoJson.slice(1)}` 
+      : `${import.meta.env.BASE_URL}${meta.pointGeoJson}`
+    console.log(`loadSitePoints: fetching ${siteId} from ${geoJsonUrl}`)
+    const gj = await fetch(geoJsonUrl).then(r => r.json())
     const featureRaw = gj.features?.[0] || gj
     const coords = featureRaw.geometry.coordinates
     console.log(`loadSitePoints: ${siteId} raw coords:`, coords)
@@ -93,8 +96,11 @@ export async function loadVideoPoints(map, videoPoints) {
   const features = []
   console.log('loadVideoPoints: loading', Object.keys(videoPoints).length, 'video points')
   for (const [pointId, meta] of Object.entries(videoPoints)) {
-    console.log(`loadVideoPoints: fetching ${pointId} from ${meta.pointGeoJson}`)
-    const gj = await fetch(meta.pointGeoJson).then(r => r.json())
+    const geoJsonUrl = meta.pointGeoJson.startsWith('/') 
+      ? `${import.meta.env.BASE_URL}${meta.pointGeoJson.slice(1)}` 
+      : `${import.meta.env.BASE_URL}${meta.pointGeoJson}`
+    console.log(`loadVideoPoints: fetching ${pointId} from ${geoJsonUrl}`)
+    const gj = await fetch(geoJsonUrl).then(r => r.json())
     const featureRaw = gj.features?.[0] || gj
     const coords = featureRaw.geometry.coordinates
     console.log(`loadVideoPoints: ${pointId} raw coords:`, coords)
