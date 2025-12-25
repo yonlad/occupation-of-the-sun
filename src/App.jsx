@@ -10,9 +10,12 @@ import { bindScrollScenes } from './map/sceneController.js'
 // Each entry can reset the current dots, add new ones, or remove some while leaving others.
 const sceneDotScript = {
   intro: { reset: true, show: ['farsia', 'naama', 'nueima', 'shdemot-mehola'], hide: ['naama-solar-fields', 'nueima-solar-fields', 'rotem'] },
-  'farsia-village': { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: ['farsia'] },
+  'farsia-village': { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: ['farsia', 'shdemot-mehola-solar'] },
   'farsia-video': { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: [] },
+  'rotem': {show: ['rotem']},
   settlements: { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: [] },
+  'sub-intro-2': { hide: ['naama-solar-fields', 'nueima-solar-fields', 'rotem', 'shdemot-mehola-solar'], show: [] },
+  'naama-nueima': { hide: [], show: ['naama-solar-fields', 'nueima-solar-fields'] },
 }
 
 function Layout({ children }) {
@@ -25,14 +28,29 @@ function Home() {
   const [storyStarted, setStoryStarted] = useState(false)
   const [heroVisible, setHeroVisible] = useState(true)
   const [visibleSiteIds, setVisibleSiteIds] = useState([])
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const landingRef = useRef(null)
   const suppressIntroHeroOnceRef = useRef(false)
+  const farsiaVideoRef = useRef(null)
   
   const handleStartClick = () => {
     suppressIntroHeroOnceRef.current = true
     setHeroVisible(false)
     setStoryStarted(true)
     document.querySelector('[data-scene-id="farsia-village"]')?.scrollIntoView({ behavior: 'smooth' })
+  }
+  
+  const handleChapterClick = (sceneId) => {
+    if (sceneId === 'intro') {
+      // For intro, show the hero card
+      setHeroVisible(true)
+    } else {
+      // For other scenes, hide hero and start story
+      suppressIntroHeroOnceRef.current = true
+      setHeroVisible(false)
+      setStoryStarted(true)
+    }
+    document.querySelector(`[data-scene-id="${sceneId}"]`)?.scrollIntoView({ behavior: 'smooth' })
   }
   
   const handleDotClick = () => {
@@ -65,6 +83,24 @@ function Home() {
   useEffect(() => {
     console.log('🔄 State update - storyStarted:', storyStarted, 'currentScene:', currentScene)
   }, [storyStarted, currentScene])
+  
+  // Pause video when leaving the video scene
+  useEffect(() => {
+    if (currentScene !== 'farsia-video' && farsiaVideoRef.current) {
+      farsiaVideoRef.current.pause()
+      setIsVideoPlaying(false)
+    }
+  }, [currentScene])
+  
+  const handleVideoPlayClick = () => {
+    if (farsiaVideoRef.current) {
+      farsiaVideoRef.current.play()
+      setIsVideoPlaying(true)
+    }
+  }
+  
+  const handleVideoPlay = () => setIsVideoPlaying(true)
+  const handleVideoPause = () => setIsVideoPlaying(false)
 
   useEffect(() => {
     const script = sceneDotScript[currentScene]
@@ -93,9 +129,14 @@ function Home() {
         <div className="logo">
           <img src="/assets/Camel.png" alt="Camel logo" />
         </div>
+        <div className="chapter-nav">
+          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('intro')} className="start-button">Start</button>
+          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('farsia-village')} className="start-button">Al-Farsia</button>
+          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('naama-nueima')} className="start-button">Nu'eima</button>
+        </div>
         <nav className="landing-nav">
           <Link target="_blank" to="https://caravancollective.org/"><span style={{fontFamily: 'El Messiri'}}>Caravan</span> <span style={{fontFamily: 'Suisse Intl'}}>Collective</span></Link>
-          <button style={{fontFamily: 'Suisse Intl'}} onClick={handleStartClick} className="start-button">Start</button>
+          
         </nav>
       </header>
       <div className="landing-map">
@@ -121,14 +162,37 @@ function Home() {
             </div>
           )}
         </div>
+
+        {/* Sub Intro scene */}
+        <div data-scene-id="sub-intro" className="scroll-section">
+          
+        </div>
         
         {/* Al-Farsia village scene */}
         <div data-scene-id="farsia-village" className="scroll-section">
           {storyStarted && (
             <div className="hero-card">
-              <h1 className="hero-title">Al - Farsia Story</h1>
+              <h1 className="hero-title">Al - Farsia</h1>
               <div className="hero-body">
-                <p>Farsiya is located in Area C of the West Bank, under direct Israeli military and civil control. This means that, by law, Israel has an obligation to provide basic services to the Area's population, including electricity and water supplies. However, while the Occupation has indeed installed both water pipes and an electricity line just a few dozen meters away from Al Farsiya, it exists exclusively to serve the illegal settlements. The Occupation authorities, going against International Law regulating Military Occupation (TK LINK), have not connected the hamlet to the grid, leaving it to its own, scarce devices to build such basic services. For many Palestinian communities in Area C, which constitutes over 60 per cent of the West Bank, power generated through solar energy is the only source of available electricity.</p>
+                <p>Barely a couple of kilometres apart, the Palestinian village of Al Farsiya Naba’a Al-Ghazzal and the Israeli settlement of Shadmot Mehola face two starkly different everyday realities.
+                </p>
+                <p>By examining the disparity in access to solar energy use and production, The Occupation of the Sun narrates how Palestinians' efforts for energy self-reliance are suppressed by industrial projects supporting Israeli settlements, funded by international stakeholders. This project reveals only a part of the complex and deeply rooted systems of oppression and apartheid that characterise Israel's occupation of Palestine.</p>
+                <p>The destruction of these Palestinian communities’ livelihoods occurs through economic, infrastructural, and outwardly violent actions by settlers and military forces. Yet, the indigenous resilience remains unbroken, as Palestinians refuse to abandon their lands.</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Al-Farsia village scene 2*/}
+        <div data-scene-id="farsia-village-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Al - Farsia</h1>
+              <div className="hero-body">
+              <p>In the northern edge of the Jordan Valley, is the village of Al-Farsiya Naba’a Al-Ghazzal.</p>
+              <p>For 47 years, the tiny hamlet, home to roughly 20 members of the Daraghme family, has survived in the Israeli-occupied West Bank. </p>
+              <p>All of its electricity comes from a handful of solar panels. The community once had a generator, but it was destroyed during one of several settler attacks in April 2024.</p>
+              <p>Al-Farsiya is one of the last remaining Palestinian shepherding communities in the Jordan Valley. Most others have already been displaced. The Daraghme family counts a few hundred sheep and a small strip of barley fields, an economy steadily strangled by nearby settlers who block access to grazing land and routinely damage crops by running their own flocks through the fields. Tubas, the closest Palestinian town, used to be a half-hour drive away; now, with the Israeli military’s closure of the Al-Hamra checkpoint for nearly two years, every trip requires a multi-hour detour.</p>
               </div>
             </div>
           )}
@@ -140,143 +204,328 @@ function Home() {
             <div className="hero-card-video">
               <h1 className="hero-title">Life in Al-Farsia</h1>
               <div className="hero-body">
-                <div className="hero-body-video" >
-                  Video Placeholder - Ahmad's Interview
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src="/assets/videos/Naama-video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
                 </div>
-                <p>They own a few hundred sheep, and a small patch of agricultural land, where they grow barley to feed the sheep. This is the economic backbone of the tiny community, they sell the lamb and sheep cheese, buy everything else they need from the markets. Both agriculture and grazing have become increasingly difficult because of pressure from Israeli settlers living nearby, who have cut Farsiya off its grazing land, and frequently damage the agricultural fields by grazing their own sheep flocks there.</p>
               </div>
             </div>
           )}
         </div>
         
          {/* Al-Farsia village scene 2*/}
-         <div data-scene-id="farsia-village-2" className="scroll-section">
+         <div data-scene-id="rotem" className="scroll-section">
           {storyStarted && (
             <div className="hero-card">
-              <h1 className="hero-title">Al - Farsia Story</h1>
+              <h1 className="hero-title">Al - Farsia</h1>
               <div className="hero-body">
                 <p>
-                The word “village” may be an overstatement. Farsiya Naba’a al-Ghazzal is a hamlet in the Israeli-occupied Jordan Valley. Farsiya is home to around 20 people, all belonging to the Daraghme family. According to Ahmad, they have lived in this location for 47 years. Palestinian shepherding communities used to move around a lot, sometimes to find better pastures, sometimes as a consequence of forced displacement by Israeli settlers and the army. Most of these communities in the Jordan Valley have been expelled already. Farsiya is one of the last ones still standing.
+                <p></p>
+                  Across Area C, which makes up more than 60 per cent of the West Bank and is under full Israeli military control, solar power is often the only available source of electricity for Palestinian herding communities -- like Al-Farsiya. Israel has refused to connect these communities to the grid, despite its obligation under international humanitarian law to provide basic services to the population under occupation. 
                 </p>
+                <p>
+                  Al-Farsiya’s solar panels were installed by Comet-ME, an Israeli-Palestinian NGO that provides basic water and energy infrastructure to vulnerable villages. But these installations are frequent targets. 
+                </p>
+                <p>
+                “There's the settlers, and there’s the army,” said 32-year-old Ahmad Daraghme, the hamlet’s informal leader. “Every other day they come to attack us.” In September 2023, nine masked settlers from Rotem settlement assaulted him on his traditional grazing lands, breaking his hand with an iron bar, leaving him in a cast for weeks; Israeli police declined to investigate. 
+                </p>
+                <p>
+                  The violence escalated in April 2024, when dozens of settlers stormed Al-Farsiya at night, attacking residents, burning a car and smashing nearly every solar panel. Police again refused to open a case. 
+                </p>
+                <p>Today, the shattered panels serve as makeshift fencing around the homes.</p>
               </div>
             </div>
           )}
         </div>
 
-        {/*Rotem scene*/}
-        <div data-scene-id="rotem" className="scroll-section">
-          {storyStarted && (
-            <div className="hero-card">
-              <h1 className="hero-title">Rotem</h1>
-              <div className="hero-body">
-                <p>Rotem is a settlement in the Jordan Valley, built in 1983. It is home to around 1000 people, most of whom are Jewish. The settlement is home to a number of Israeli military bases, and is a major center of Israeli military activity in the Jordan Valley.</p>
-              </div>
-            </div>
-          )}
-        </div>
-
-         {/* In the Community Video scene */}
-         <div data-scene-id="in-the-community-video" className="scroll-section">
+        {/* Rotem Video scene */}
+        <div data-scene-id="rotem-video" className="scroll-section">
           {storyStarted && (
             <div className="hero-card-video">
-              <h1 className="hero-title">In the Community Video</h1>
+              <h1 className="hero-title">Al-Farsia Energy</h1>
               <div className="hero-body">
-                <div className="hero-body-video" >
-                  Video Placeholder - In the Community Video
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src="/assets/videos/Naama-video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Settlements scene */}
+        {/*settlements scene*/}
         <div data-scene-id="settlements" className="scroll-section">
           {storyStarted && (
             <div className="hero-card">
-              <h1 className="hero-title">Settlements</h1>
+              <h1 className="hero-title">Shadmot Mehola Settlement</h1>
               <div className="hero-body">
-                <p>“There's the settlers, there’s the army”, says Ahmad, “Every other day they come to attack us.” Ahmad is 32 years old, and serves as the informal leader of the community. On September 9th 2023, a month before October 7th, Ahmad was grazing his sheep on his traditional grazing lands near his summer camp. He was accompanied by two members of the human rights advocacy organisation Jordan Valley Activists (JVA), who regularly come with Ahmad to ensure his safety. This day it didn’t help. Nine masked settlers descended upon them, and attacked Ahmad and the activists. They broke Ahmad’s hand with an iron bar, leaving him in a cast for weeks. Israeli police refused to investigate the crime.
+                <p>Israel has set ambitious targets to expand its solar energy capacity by 2030. The government aims to generate 30% of the nation's electricity from renewable sources by that year, with solar energy playing a central role. To achieve this goal, Israel plans to increase its installed solar capacity to approximately 17 gigawatts (GW) by 2030. This expansion will involve the development of large-scale solar farms, integration of energy storage solutions, and the promotion of rooftop solar installations across the country. 
                 </p>
-                <p>Across the road from it is the Israeli settlement Rotem built in 1983. Rotem prides itself on being a “green” settlement, using recycling and environment-friendly construction. Adjacent to Rotem is an outpost managed by Didi Amosi and his family, called Tene Yarok farm. The outpost terrorises the village of Farsiya on a daily basis, regularly invading the village, assaulting residents and destroying property. A bit further away sits the settlement Shadmot Mehola, another centre of settler terror in the area. Its residents also have a history of attacking Palestinian residents and activists, and destroying property. This settlement also houses the Shadmot Mehola solar panel field.
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Pogrom scene */}
-        <div data-scene-id="pogrom" className="scroll-section">
-          {storyStarted && (
-            <div className="hero-card">
-              <h1 className="hero-title">Pogrom</h1>
-              <div className="hero-body">
-                <p>On April 14, 2024, a group of masked settlers left the settlement of Mehola shortly after midnight. Moving on foot, they passed near the outpost of Rotem and crossed Highway 578, the main north–south road in the Jordan Valley. From there they continued toward the Palestinian village of Farsiya.</p>
-                <p>Most residents were asleep when the settlers entered the community. Witnesses said the group split into smaller clusters, some approaching houses while others went toward the area where solar panels were kept. During the incursion, the settlers forced their way into the community, attacked residents, set fire to a car and destroyed nearly all of the solar panels that supply electricity to the village.</p>
-                <p>The attack lasted more than an hour before the settlers withdrew in the direction they had come. No arrests were made, and the Israeli police later confirmed they would not open an investigation.</p>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Shdemot Mehola scene */}
-        <div data-scene-id="shdemot-mehola" className="scroll-section">
-          {storyStarted && (
-            <div className="hero-card">
-              <h1 className="hero-title">Shdemot Mehola</h1>
-            <div className="hero-body">
-                <p>The settlement was established in 1979 as part of a broader effort to create Israeli military infrastructure along the Jordanian border. Today, Shadmot Mehola is a civilian religious community, comprising approximately 650 residents, including farmers, teachers, lawyers, and other professionals. </p>
-                <p>Four soldiers man the large electric gate leading into the settlement. Their wary expressions fade once they hear us speak Hebrew. Inside the gate, the desert topography of the Jordan Valley becomes unrecognizable: flourishing - albeit foreign - trees line the sidewalks, green grass surrounds neat, tiled-roofed houses, and even the dusty air seems clearer beyond the electric fence.</p>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Way to Mehola Fields scene */}
-        <div data-scene-id="mehola-fields" className="scroll-section">
-          {storyStarted && (
-            <div className="hero-card">
-              <h1 className="hero-title">Way to Mehola Fields</h1>
-              <div className="hero-body">
-                <p>While Palestinian communities are struggling to survive with basic energy supplies, international companies profit from powering Israeli settlements. One of these settlements, Shadmot Mehola, is just a 10-minute ride north of Farsiya. </p>
-                <p>As we drive up the paved road, in contrast to the dirt road leading up to Farsiya, it is impossible to miss the half-kilometre stretch of gleaming solar panels. These panels are directly connected to the Israel Electric Corporation (IEC), the national electricity company, as explained by Noam Bigon, administrator of the settlement. </p>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Shdemot Mehola scene */}
-        <div data-scene-id="shdemot-mehola" className="scroll-section">
-          {storyStarted && (
-            <div className="hero-card">
-              <h1 className="hero-title">Shdemot Mehola</h1>
-            <div className="hero-body">
-                <p>The settlement was established in 1979 as part of a broader effort to create Israeli military infrastructure along the Jordanian border. Today, Shadmot Mehola is a civilian religious community, comprising approximately 650 residents, including farmers, teachers, lawyers, and other professionals. </p>
-                <p>Four soldiers man the large electric gate leading into the settlement. Their wary expressions fade once they hear us speak Hebrew. Inside the gate, the desert topography of the Jordan Valley becomes unrecognizable: flourishing - albeit foreign - trees line the sidewalks, green grass surrounds neat, tiled-roofed houses, and even the dusty air seems clearer beyond the electric fence.</p>
+                <p>
+                  The irony is impossible to miss: just a few dozen meters away, Israel has laid water pipes and an electricity line, but only to serve the nearby settlements. While Israel promotes its green energy initiatives and environmental policies, it systematically exploits Palestinian land, water, and natural resources.</p>
               </div>
             </div>
           )}
         </div>
 
-        {/* Noam's Office scene */}
-        <div data-scene-id="noam-office" className="scroll-section">
+        {/*shdemot mehola scene*/}
+        <div data-scene-id="shdemot-mehola" className="scroll-section">
           {storyStarted && (
             <div className="hero-card">
-              <h1 className="hero-title">Noam's Office</h1>
-            <div className="hero-body">
-                <p>Noam welcomes us with tea and coffee in his air-conditioned office, offering seats in front of a large map of the settlement. He points out the communal buildings: synagogues, community center, school, swimming pool, and territory allocated for 120 pre-fabricated residential units. These single-family homes can be assembled in just two weeks, he says proudly: “Families from all over the country want to live here… there’s a calm environment.”</p>
+              <h1 className="hero-title">Shadmot Mehola Settlement</h1>
+              <div className="hero-body">
+                <p>The rapid expansion of solar energy in the occupied West Bank has become a tool of colonisation, land seizure, and resource extraction, packaged as “green development.” This greenwashing masks the systematic transfer of  Palestinian land and resources to Israeli and international corporations through lucrative renewable energy investments. 
+                </p>
+                <p>
+              Settlements are increasingly powered by large, internationally funded solar farms, while Palestinian communities in the same areas struggle simply to keep the lights on. Small, improvised systems are routinely demolished or vandalised by settlers or the military.  The result is two starkly different energy realities in one territory — what some call “Energy apartheid”.
+                </p>
               </div>
             </div>
           )}
         </div>
-        {/* Mehola Spawl Scene */}
-        <div data-scene-id="mehola-spawl" className="scroll-section">
+
+        {/*shdemot mehola zoom scene*/}
+        <div data-scene-id="shdemot-mehola-zoom" className="scroll-section">
           {storyStarted && (
             <div className="hero-card">
-              <h1 className="hero-title">Mehola Spawl</h1>
+              <h1 className="hero-title">Shadmot Mehola Settlement</h1> 
             <div className="hero-body">
-                <p>Tracing his finger down to the road we arrived from, Noam indicates the Shadmot Mehola Solar Field. Built in 2016, it spans over 50,000 square meters with a capacity of 5 MW, an investment of 40 million shekels.</p>
-                <p>In 1997, this land was taken from the Palestinian Tubas governorate, and transferred to the settlement by the World Zionist Organisation. In 2023 the Civil Administration outlines a new “solar gate” that will encircle the entire settlement. “We are doing an innovative project,” Noam explains. “The settlement gate itself will be made of solar panels. It will produce its own security lighting. Come back in two years and you will see.”</p>
-                <p>The Shadmot Mehola Solar Field was approved under a special arrangement by the Ministry of Energy and the Electricity Authority for entrepreneurs operating in the occupied West Bank. As part of this scheme, the state guaranteed that it would purchase electricity from the field at a relatively high price of 0.54–0.51 shekels per kWh for at least 20 years.</p>
+            <p>Just a 10-minute drive from Al-Farsiya, set in a parallel, luxurious, dystopian reality, is the settlement of Shadmot Mehola. 
+              While Al-Farsiya struggles to keep a few fragile solar panels standing, international companies are profiting from the Israeli settlements around it. </p>
+              <p>Founded in 1979 as part of a broader effort to create Israeli military infrastructure along the Jordanian border, Shadmot Mehola became a civilian settlement in 1984 and is now home to roughly 650 residents — farmers, teachers, lawyers and other professionals. Four soldiers guard the settlement’s large electric gate. Beyond the fence, the Jordan Valley’s desert topography seems to disappear: flourishing - albeit foreign - trees line the sidewalks, manicured lawns surround neat, tiled-roofed houses, and even the air seems clearer inside the enclosure.
+              </p>
               </div>
             </div>
           )}
         </div>
+
+        {/*shdemot mehola zoom scene 2*/}
+        <div data-scene-id="shdemot-mehola-zoom-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Shadmot Mehola Settlement</h1> 
+            <div className="hero-body">
+            <p>Noam Bigon, the settlement’s administrator, welcomed us into his air-conditioned office, offering tea and coffee in front of a large map of the settlement. He traced the locations of synagogues, community centers, schools, swimming pools, and a wide zoned area for 120 prefabricated housing units — single-family homes that, he said proudly, could be assembled in just two weeks. “Families from all over the country want to live here,” he said. “There’s a calm environment.”
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+         {/* Shdemot Mehola Video scene */}
+         <div data-scene-id="shdemot-mehola-video" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card-video">
+              <h1 className="hero-title">Shadmot Mehola Settlement</h1>
+              <div className="hero-body">
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src="/assets/videos/Shdemot-video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/*shdemot mehola out scene*/}
+        <div data-scene-id="shdemot-mehola-out" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Shadmot Mehola Solar Field</h1>
+              <div className="hero-body">
+              <p>The dirt track leading out of Al-Farsiya gives way to a smooth, paved route that rises toward a half-kilometer stretch of gleaming solar panels. These panels, Bigon explained, are connected directly to the Israel Electric Corporation (IEC), the national grid. 
+              </p>
+              <p>Sliding his finger toward the road we had driven on, Bigon pointed to the Shadmot Mehola Solar Field. Built in 2016, the installation covered more than 50,000 square meters and produced five megawatts of electricity, financed by a 40-million-shekel private Israeli investment. The land beneath the solar field had been taken in 1997 from the Palestinian Tubas governorate and transferred to the settlement through the World Zionist Organisation.
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/*shdemot mehola solar field scene*/}
+        <div data-scene-id="shdemot-mehola-solar-field" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Shadmot Mehola Solar Field</h1>
+              <div className="hero-body">
+              <p>A newer project was also underway. In 2023, the Civil Administration outlined plans for a “solar gate” that would encircle the entire settlement. “We are doing an innovative project,” Bigon explained. “The settlement's gate itself will be made out of solar panels. It will produce its own security lighting. Come back in two years, and you will see.”
+              </p>
+
+              <p>The solar field operated under a special arrangement approved by the Ministry of Energy and the Electricity Authority for entrepreneurs in the occupied West Bank. Through this scheme, the Israeli state guaranteed it would buy electricity from the field for at least 20 years at an unusually high rate of NIS 0.51–0.54 (.16 -.17 USD) per kilowatt.
+              </p>
+              <p>When asked if the residents of Shadmot Mehola cared about the environmental significance of the panels, Bigon emphasized that, above all, they were a source of profit for the community. “On the panels, you can draw a dollar sign,” he said. “That is their significance.”
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Shdemot Mehola Video scene */}
+        <div data-scene-id="shdemot-mehola-solar-video" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card-video">
+              <h1 className="hero-title">Shadmot Mehola Solar Field</h1>
+              <div className="hero-body">
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src="/assets/videos/Shdemot-solar-video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+
+        {/*settlements-2 scene*/}
+        <div data-scene-id="settlements-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Shadmot Mehola & Al-Farsiya</h1>
+              <div className="hero-body">
+              <p>The relationship between Shadmot Mehola and Al-Farsiya runs far deeper than energy disparity and land seizure. According to evidence collected by the human rights group Jordan Valley Activists (JVA), settlers from Shadmot Mehola have for years been involved in violent attacks targeting Al-Farsiya.
+              </p>
+              <p>
+              In September 2023, the settlers who broke Ahmad’s hand with an iron bar came from Shadmot Mehola. Among them were the Rosenberg brothers — the grandsons of the rabbi who founded the settlement’s religious school. The settlement’s security coordinator watched the attack without intervening.
+              </p>
+              <p>
+              On June 9, 2025 two settlers walked down from Shadmot Mehola to begin constructing a 150-meter fence just two meters away from Al-Farsiya’s homes, cutting off the village from its remaining land.
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/*sub-intro-2 scene*/}
+        <div data-scene-id="sub-intro-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Shadmot Mehola & Al-Farsiya</h1>
+              <div className="hero-body">
+              <p>The brutal violence inflicted on Ahmad and his family is not separate from the settlement’s glossy green energy projects. They are two sides of the same effort: a system designed to remove Palestinian communities from the Jordan Valley and replace them with Israeli settlers. The men who engineered the solar panels and the men who attacked Ahmad live in the same houses, and work towards the same end. 
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+         {/*naama-nueima scene*/}
+         <div data-scene-id="naama-nueima" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Na'ama Settlement</h1>
+              <div className="hero-body">
+              <p>The Israeli settlement of Na'ama was established in 1982 in the Jordan Valley, occupied West Bank.Na'ama was established on land confiscated from the Palestinian village of An Nuwei’ma. According to ARIJ’s GIS Unit (2011), the Israeli government seized 5,048 dunums — roughly 10.4% of the village’s total area — to build what was then called “Na’omi.” 
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+        {/*naama scene*/}
+        <div data-scene-id="naama" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Na'ama Settlement</h1>
+              <div className="hero-body">
+              <p>As of 2022, Na’amas’ population stood at 247 residents, following a communal secular lifestyle. For several years, the settlement was formally renamed Na'omi before the original name, Na'ama, was reinstated. </p>
+            <p>
+            The name Na'ama is an acronym for Hebrew Youth Settling the West Bank. The residents of Na’ama are mainly engaged in agriculture, growing dates, green herbs, orchards, and vegetables. The agriculture production exports goods both locally and internationally.
+            
+              </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+
+
+
+
+
+
+
+        
         
       </div>
     </div>

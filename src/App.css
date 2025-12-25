@@ -9,6 +9,9 @@
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  
+  /* Scroll snap for hero card centering */
+  scroll-snap-type: y mandatory;
 }
 
 .landing::-webkit-scrollbar {
@@ -68,6 +71,15 @@
 
 .landing-nav a:hover {
   text-decoration: underline;
+}
+
+.chapter-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
 }
 
 .landing-map {
@@ -180,6 +192,10 @@
   padding: 130px 40px 40px 40px;
   position: relative;
   pointer-events: none; /* allow clicks to pass to map */
+  
+  /* Snap each section to start when scrolling */
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* Ensures each section is visited */
 }
 
 /* Hero cards are clickable */
@@ -222,4 +238,63 @@
   color: #888;
   font-size: 16px;
   margin-bottom: 16px;
+}
+
+/* Video container styling - customize this to design your video player */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0a0a;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Video element styling */
+.scene-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+/* Custom video controls appearance (browser-dependent) */
+.scene-video::-webkit-media-controls-panel {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.scene-video:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+}
+
+/* Video play button overlay */
+.video-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.video-play-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-button svg {
+  width: 36px;
+  height: 36px;
+  margin-left: 4px; /* slight offset to center the triangle visually */
 }
