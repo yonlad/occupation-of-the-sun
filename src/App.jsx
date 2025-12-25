@@ -58,8 +58,8 @@ function Home() {
   }
   
   useEffect(() => {
-    if (!mapInstance) return
-    const unbind = bindScrollScenes(mapInstance, farsiaSteps, (sceneId) => {
+    if (!mapInstance?.map) return
+    const unbind = bindScrollScenes(mapInstance.map, farsiaSteps, (sceneId) => {
       console.log('🎬 Scene changed:', sceneId, 'storyStarted:', storyStarted)
       setCurrentScene(sceneId)
       // Auto-start story when scrolling to farsia scene
@@ -78,6 +78,14 @@ function Home() {
     }, { root: landingRef.current || null })
     return () => unbind?.()
   }, [mapInstance, storyStarted])
+  
+  // Toggle West Bank overlay visibility based on current scene
+  useEffect(() => {
+    if (!mapInstance?.showWestBankOverlay) return
+    // Show overlay only on sub-intro scene
+    const shouldShow = currentScene === 'sub-intro'
+    mapInstance.showWestBankOverlay(shouldShow)
+  }, [currentScene, mapInstance])
   
   // Debug logging
   useEffect(() => {
@@ -241,7 +249,6 @@ function Home() {
               <h1 className="hero-title">Al - Farsia</h1>
               <div className="hero-body">
                 <p>
-                <p></p>
                   Across Area C, which makes up more than 60 per cent of the West Bank and is under full Israeli military control, solar power is often the only available source of electricity for Palestinian herding communities -- like Al-Farsiya. Israel has refused to connect these communities to the grid, despite its obligation under international humanitarian law to provide basic services to the population under occupation. 
                 </p>
                 <p>

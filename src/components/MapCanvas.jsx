@@ -87,6 +87,37 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         }
       }
 
+      // Add West Bank overlay - hidden by default, shown only on sub-intro scene
+      try {
+        const westBankCoords = [
+          [34.737255684304955, 32.56348699254539],  // top-left
+          [35.57650523264138, 32.56348699254539],   // top-right
+          [35.57650523264138, 31.31355578154553],   // bottom-right
+          [34.737255684304955, 31.31355578154553]   // bottom-left
+        ]
+
+        map.addSource('west-bank-overlay', {
+          type: 'image',
+          url: '/assets/map_resized2.png',
+          coordinates: westBankCoords
+        })
+
+        map.addLayer({
+          id: 'west-bank-overlay-layer',
+          type: 'raster',
+          source: 'west-bank-overlay',
+          layout: {
+            visibility: 'none'  // Hidden by default
+          },
+          paint: {
+            'raster-opacity': 1
+          }
+        })
+        console.log('MapCanvas: West Bank overlay added (hidden)')
+      } catch (e) {
+        console.error('MapCanvas: West Bank overlay setup error:', e)
+      }
+
       try {
         // Use smaller pins on landing page (grayscale mode)
         const pinSize = grayscale ? 16 : 23
@@ -125,7 +156,16 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         })
         
         setMarkersReady(true)
-        onReady?.(map)
+        // Expose map and utility methods to parent
+        onReady?.({
+          map,
+          showWestBankOverlay: (visible) => {
+            if (map.getLayer('west-bank-overlay-layer')) {
+              map.setLayoutProperty('west-bank-overlay-layer', 'visibility', visible ? 'visible' : 'none')
+              console.log('MapCanvas: West Bank overlay visibility:', visible ? 'visible' : 'none')
+            }
+          }
+        })
 
         /*
         // Also load video points using the same pattern so the red dot renders
