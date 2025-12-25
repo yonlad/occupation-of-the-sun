@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Shdemot Mehola Solar",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "Point", "coordinates": [ 738487.573994244681671, 3581226.145258760545403 ] } }
+]
+}
