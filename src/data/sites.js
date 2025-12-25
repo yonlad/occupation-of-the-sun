@@ -75,6 +75,12 @@ export const sites = {
     pointGeoJson: '/data/geojson/Noam\'s Office.geojson',
     tableCsv: null,
   },
+  'jericho-governate': {
+    id: 'jericho-governate',
+    name: 'Jericho Governate',
+    pointGeoJson: '/data/geojson/Jericho-Governate.geojson',
+    tableCsv: null,
+  },
 }
 
 

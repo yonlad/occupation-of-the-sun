@@ -259,6 +259,16 @@
     "bearing" : 17,
     "duration" : 2000
   }   
+},
+{
+  "id": "jericho-governate",
+  "camera" : {
+    "center": [35.45773934819883 , 31.86783239284061],
+    "zoom" : 15.03,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
 }
 ]
 
