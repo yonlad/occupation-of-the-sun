@@ -12,11 +12,11 @@
   {
     "id": "sub-intro",
     "camera" : {
-      "center": [35.3354 , 32.1942],
-      "zoom" : 9.5,
-      "pitch" : 0,
-      "bearing" : 17,
-      "duration" : 2000
+    "center": [34.6855 , 32.1554],
+    "zoom" : 8.5,
+    "pitch" : 0,
+    "bearing" : 9.8,
+    "duration" : 2000
     }   
 },
   {

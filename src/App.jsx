@@ -55,9 +55,6 @@ function Home() {
     document.querySelector(`[data-scene-id="${sceneId}"]`)?.scrollIntoView({ behavior: 'smooth' })
   }
   
-  const handleDotClick = () => {
-    setHeroVisible(false)
-  }
   
   useEffect(() => {
     if (!mapInstance?.map) return
@@ -140,11 +137,11 @@ function Home() {
           <img src={`${import.meta.env.BASE_URL}assets/Camel.png`} alt="Camel logo" />
         </div>
         <div className="chapter-nav">
-          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('intro')} className="start-button">Start</button>
-          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('farsia-village')} className="start-button">Al-Farsia</button>
-          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('naama-nueima')} className="start-button">Nu'eima</button>
-          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('west-bank')} className="start-button">Energy Apartheid</button>
-          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('globe-scene')} className="start-button">Global Complicity</button>
+          <button style={{fontFamily: 'El Messiri'}} onClick={() => handleChapterClick('intro')} className="start-button">Start</button>
+          <button style={{fontFamily: 'El Messiri'}} onClick={() => handleChapterClick('farsia-village')} className="start-button">Al-Farsia</button>
+          <button style={{fontFamily: 'El Messiri'}} onClick={() => handleChapterClick('naama-nueima')} className="start-button">Nu'eima</button>
+          <button style={{fontFamily: 'El Messiri'}} onClick={() => handleChapterClick('west-bank')} className="start-button">Energy Apartheid</button>
+          <button style={{fontFamily: 'El Messiri'}} onClick={() => handleChapterClick('globe-scene')} className="start-button">Global Complicity</button>
         </div>
         <nav className="landing-nav">
           <Link target="_blank" to="https://caravancollective.org/"><span style={{fontFamily: 'El Messiri'}}>Caravan</span> <span style={{fontFamily: 'Suisse Intl'}}>Collective</span></Link>
@@ -156,7 +153,6 @@ function Home() {
           onReady={setMapInstance} 
           //showVideoPoints={currentScene === 'farsia-village'} 
           grayscale={currentScene === 'intro' || currentScene === 'intro-2' || currentScene === 'globe-scene'}
-          onDotClick={handleDotClick}
           scrollContainer={landingRef.current}
           visibleSiteIds={visibleSiteIds}
         />

@@ -11,7 +11,14 @@
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   
   /* Scroll snap for hero card centering */
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y mandatory; /* Proximity snapping for better centering | could be changed to mandatory | also can be changed to proximity to allow smoother scrolling with mouse wheel */
+/*
+ * Custom CSS scroll snap usually uses `scroll-behavior: smooth`, but browser default smoothness duration is not configurable here.
+ * To create slower, ultra-smooth snap animations, you'll need to use `scroll-behavior: smooth` here, but 
+ * for further control, use JavaScript to animate scroll with a custom duration and easing.
+ * As a hint for future development, you can remove or keep the line below, but JS must be used for real control:
+ */
+scroll-behavior: smooth;
 }
 
 .landing::-webkit-scrollbar {
@@ -86,6 +93,7 @@
   position: fixed;
   inset: 0;
   z-index: 1;
+  pointer-events: none; /* Let scroll events pass through to .landing  so that map layer is not interactable*/
 }
 
 .hero-card {

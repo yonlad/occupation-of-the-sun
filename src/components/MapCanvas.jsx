@@ -4,9 +4,6 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import { sites, farsiaSites, videoPoints } from '../data/sites.js'
 import { loadSitePoints, loadVideoPoints } from '../map/sourcesLayers.js'
 import Tooltip from './Tooltip.jsx'
-import Modal from './Modal.jsx'
-import DataTable from './DataTable.jsx'
-import VideoModal from './VideoModal.jsx'
 
 // Enable RTL text plugin for Hebrew/Arabic labels on the map
 let rtlPluginLoaded = false
@@ -25,14 +22,13 @@ if (!rtlPluginLoaded) {
   rtlPluginLoaded = true
 }
 
-export default function MapCanvas({ onReady, onDotClick, grayscale = false, showVideoPoints = false, scrollContainer = null, visibleSiteIds = [] }) {
+export default function MapCanvas({ onReady, grayscale = false, showVideoPoints = false, scrollContainer = null, visibleSiteIds = [] }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const markersRef = useRef([])
   const visibleSiteIdsRef = useRef(visibleSiteIds) // Track current value for async access
   const [markersReady, setMarkersReady] = useState(false) // Track when markers are loaded
   const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, text: '' })
-  const [modal, setModal] = useState({ open: false, title: '', csvUrl: '', type: 'data' })
   // const videoListenersAttachedRef = useRef(false)
   // const [videoModal, setVideoModal] = useState({ open: false, title: '', body: '' })
 
@@ -126,9 +122,11 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
         markersRef.current = markers
         console.log('MapCanvas: site points loaded')
 
-        // Attach event listeners to HTML marker elements
+        // Attach event listeners to HTML marker elements (tooltip only, no click popup)
         markers.forEach(({ marker, siteId, name, meta }) => {
           const el = marker.getElement()
+          // Enable pointer events on markers (parent .landing-map has pointer-events: none)
+          el.style.pointerEvents = 'auto'
           el.addEventListener('mouseenter', (e) => {
             const rect = el.getBoundingClientRect()
             const mapRect = containerRef.current.getBoundingClientRect()
@@ -136,10 +134,6 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
           })
           el.addEventListener('mouseleave', () => {
             setTooltip(t => ({ ...t, visible: false }))
-          })
-          el.addEventListener('click', () => {
-            setModal({ open: true, title: meta.name, csvUrl: meta.tableCsv, type: 'data' })
-            onDotClick?.()
           })
         })
 
@@ -183,50 +177,26 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     }
   }, [])
 
-  // Forward wheel/touch scroll on the map canvas to the provided scroll container
+  // Reduce mouse wheel sensitivity while keeping touchpad native
+  // The .landing-map has pointer-events: none, so we attach to scrollContainer (.landing)
   useEffect(() => {
-    if (!mapRef.current || !scrollContainer) return
-    const canvas = mapRef.current.getCanvas()
+    if (!scrollContainer) return
 
     const onWheel = (e) => {
-      // Allow cmd/ctrl + wheel zoom gesture to still work if desired
-      if (e.ctrlKey || e.metaKey) return
-      e.preventDefault()
-      const delta = e.deltaY
-      try {
-        scrollContainer.scrollBy({ top: delta, behavior: 'auto' })
-      } catch {}
-    }
-
-    let touchStartY = null
-    const onTouchStart = (e) => {
-      if (e.touches && e.touches.length === 1) {
-        touchStartY = e.touches[0].clientY
-      }
-    }
-    const onTouchMove = (e) => {
-      if (touchStartY == null) return
-      const currentY = e.touches[0].clientY
-      const delta = touchStartY - currentY
-      if (Math.abs(delta) > 0) {
+      // Only intercept large deltas (mouse wheel produces ~100+ per click)
+      // Small deltas (touchpad, typically 1-30) pass through for native scrolling
+      if (Math.abs(e.deltaY) > 50) {
         e.preventDefault()
-        try {
-          scrollContainer.scrollBy({ top: delta, behavior: 'auto' })
-        } catch {}
+        const reducedDelta = e.deltaY * 0.9  // Reduce mouse wheel sensitivity
+        scrollContainer.scrollBy({ top: reducedDelta, behavior: 'smooth' })
       }
+      // Touchpad events (small deltas) are not prevented, so native scrolling works
     }
-    const onTouchEnd = () => { touchStartY = null }
 
-    canvas.addEventListener('wheel', onWheel, { passive: false })
-    canvas.addEventListener('touchstart', onTouchStart, { passive: true })
-    canvas.addEventListener('touchmove', onTouchMove, { passive: false })
-    canvas.addEventListener('touchend', onTouchEnd, { passive: true })
+    scrollContainer.addEventListener('wheel', onWheel, { passive: false })
 
     return () => {
-      canvas.removeEventListener('wheel', onWheel)
-      canvas.removeEventListener('touchstart', onTouchStart)
-      canvas.removeEventListener('touchmove', onTouchMove)
-      canvas.removeEventListener('touchend', onTouchEnd)
+      scrollContainer.removeEventListener('wheel', onWheel)
     }
   }, [scrollContainer])
 /*
@@ -422,31 +392,6 @@ export default function MapCanvas({ onReady, onDotClick, grayscale = false, show
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
       <Tooltip {...tooltip} />
-      <Modal open={modal.open} title={modal.title} onClose={() => setModal(m => ({ ...m, open: false }))}>
-        {modal.type === 'data' ? (
-          <DataTable csvUrl={modal.csvUrl} />
-        ) : (
-          <div style={{ padding: '24px', textAlign: 'center' }}>
-            <div style={{ 
-              width: '100%', 
-              height: '400px', 
-              background: '#1a1a1a', 
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#888',
-              fontSize: '16px'
-            }}>
-              Video Placeholder
-            </div>
-            <p style={{ marginTop: '16px', color: '#ddd' }}>
-              This will be replaced with an actual video player
-            </p>
-          </div>
-        )}
-      </Modal>
-      {/*<VideoModal open={videoModal.open} title={videoModal.title} body={videoModal.body} onClose={() => setVideoModal(m => ({ ...m, open: false }))} />*/}
     </div>
   )
 }
