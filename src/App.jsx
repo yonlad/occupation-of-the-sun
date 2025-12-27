@@ -16,6 +16,8 @@ const sceneDotScript = {
   settlements: { hide: ['naama-solar-fields', 'nueima-solar-fields'], show: [] },
   'sub-intro-2': { hide: ['naama-solar-fields', 'nueima-solar-fields', 'rotem', 'shdemot-mehola-solar'], show: [] },
   'naama-nueima': { hide: [], show: ['naama-solar-fields', 'nueima-solar-fields'] },
+  'nueima-zoom': { show: ['nueima', 'beit-al-ajdad', 'jericho-governate'] },
+  'west-bank': { hide: ['naama-solar-fields', 'nueima-solar-fields', 'jericho-governate', 'beit-al-ajdad'] },
 }
 
 function Layout({ children }) {
@@ -83,7 +85,7 @@ function Home() {
   useEffect(() => {
     if (!mapInstance?.showWestBankOverlay) return
     // Show overlay only on sub-intro scene
-    const shouldShow = currentScene === 'sub-intro'
+    const shouldShow = currentScene === 'sub-intro' || currentScene === 'west-bank'
     mapInstance.showWestBankOverlay(shouldShow)
   }, [currentScene, mapInstance])
   
@@ -141,6 +143,8 @@ function Home() {
           <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('intro')} className="start-button">Start</button>
           <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('farsia-village')} className="start-button">Al-Farsia</button>
           <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('naama-nueima')} className="start-button">Nu'eima</button>
+          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('west-bank')} className="start-button">Energy Apartheid</button>
+          <button style={{fontFamily: 'Suisse Intl'}} onClick={() => handleChapterClick('globe-scene')} className="start-button">Global Complicity</button>
         </div>
         <nav className="landing-nav">
           <Link target="_blank" to="https://caravancollective.org/"><span style={{fontFamily: 'El Messiri'}}>Caravan</span> <span style={{fontFamily: 'Suisse Intl'}}>Collective</span></Link>
@@ -151,7 +155,7 @@ function Home() {
         <MapCanvas 
           onReady={setMapInstance} 
           //showVideoPoints={currentScene === 'farsia-village'} 
-          grayscale={currentScene === 'intro'}
+          grayscale={currentScene === 'intro' || currentScene === 'intro-2' || currentScene === 'globe-scene'}
           onDotClick={handleDotClick}
           scrollContainer={landingRef.current}
           visibleSiteIds={visibleSiteIds}
@@ -524,7 +528,358 @@ function Home() {
             </div>
           )}
         </div>
+        {/*naama scene*/}
+        <div data-scene-id="naama-zoom" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Na'ama Settlement</h1>
+              <div className="hero-body">
+              
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Na'ama Video scene */}
+        <div data-scene-id="naama-video" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card-video">
+              <h1 className="hero-title">Na'ama Video</h1>
+              <div className="hero-body">
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Shdemot-solar-video.mp4`} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        {/*naama-2 scene*/}
+        <div data-scene-id="naama-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Na'ama Settlement</h1>
+              <div className="hero-body">
+              
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Na'ama solar Video scene */}
+        <div data-scene-id="naama-solar" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card-video">
+              <h1 className="hero-title">Na'ama Solar</h1>
+              <div className="hero-body">
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Shdemot-solar-video.mp4`} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        {/*naama-nueima scene*/}
+        <div data-scene-id="naama-nueima-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Na'ama Settlement</h1>
+              <div className="hero-body">
+              </div>
+            </div>
+          )}
+        </div>
+        {/*nueima zoom scene*/}
+        <div data-scene-id="nueima-zoom" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Nu'eima</h1>
+              <div className="hero-body">
+              </div>
+            </div>
+          )}
+        </div>
+        {/*nueima solar scene*/}
+        <div data-scene-id="nueima-solar" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Nu'eima Solar</h1>
+              <div className="hero-body">
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Nu'eima Solar Video scene */}
+        <div data-scene-id="nueima-solar-video" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card-video">
+              <h1 className="hero-title">Nu'eima Solar</h1>
+              <div className="hero-body">
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Shdemot-solar-video.mp4`} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        {/*nueima zoom 2 scene*/}
+        <div data-scene-id="nueima-zoom-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Nu'eima</h1>
+              <div className="hero-body">
+              </div>
+            </div>
+          )}
+        </div>
+        {/*beit al ajdad scene*/}
+        <div data-scene-id="beit-al-ajdad" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Beit Al-Ajdad Elderly Care Home</h1>
+              <div className="hero-body">
+              </div>
+            </div>
+          )}
+        </div>
+        {/* Beit Al-Ajdad Video scene */}
+        <div data-scene-id="beit-al-ajdad-video" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card-video">
+              <h1 className="hero-title">Beit Al-Ajdad Elderly Care Home</h1>
+              <div className="hero-body">
+                <div className="video-container">
+                  <video 
+                    ref={farsiaVideoRef}
+                    className="scene-video"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={handleVideoPlay}
+                    onPause={handleVideoPause}
+                  >
+                    <source src={`${import.meta.env.BASE_URL}assets/videos/Shdemot-solar-video.mp4`} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {!isVideoPlaying && (
+                    <button 
+                      className="video-play-button"
+                      onClick={handleVideoPlayClick}
+                      aria-label="Play video"
+                    >
+                      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        {/*west-bank scene*/}
+        <div data-scene-id="west-bank" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Back Again</h1>
+              <div className="hero-body">
+              </div>
+              <p>
+              The need for sustainable energy systems is undeniable. But Israel’s self-portrait as a sustainable state also serves a political purpose, obscuring the extent to which its renewable-energy simultaneously fuels and relies on the seizure of Palestinian land. 
+              </p>
+              <p>
+              The structural imbalance stretches back decades. Since 1992, following the Oslo Accords, Palestinian areas A and B have been forced to purchase all electricity from the Israel Electric Corporation. The IEC, for its part, sources power from industrial zones in settlements across the West Bank and in the Naqab/Negev — areas, where dozens of Palestinian villages and Bedouin communities have been displaced to make way for solar fields and related infrastructure. 
+            </p>
 
+            </div>
+          )}
+        </div>
+        {/*west-bank scene*/}
+        <div data-scene-id="west-bank" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Back Again</h1>
+              <div className="hero-body">
+              </div>
+              <p>
+              Israel has invested heavily in branding itself as a green pioneer since the early 2010s. In a 2015 speech to the United Nations, Israel’s ambassador boasted that the country had become “a hub for renewable energy research and development.” 
+              </p>
+              <p>
+              “The same sun that shines equally on all of us, is owned by none of us, and can supply energy in abundance, inherently promotes peace,” he continued.
+              </p>
+              <p>
+              But this self-branding became much more aggressive after 2020, when Israel announced its 2030 renewable energy targets.
+              </p>
+
+            </div>
+          )}
+        </div>
+        {/*west-bank scene*/}
+        <div data-scene-id="west-bank" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Back Again</h1>
+              <div className="hero-body">
+              </div>
+              <p>
+              Israel’s solar electricity generation grew from virtually nothing in 2008 to 7,540 gigawatts by 2023 — making up 86% of its renewable output.
+              </p>
+              <p>
+              This rapid buildup hasn’t happened in a vacuum. It has been driven by an aggressive set of economic incentives designed to facilitate private investment into the solar market. Subsidies, long-term feed-in tariffs, guaranteed grid access, and streamlined permitting have turned renewable energy into a highly profitable venture.
+              </p>
+              <p>
+              As reported by Who Profits in 2024, “between 2017 and 2022, the Israel Land Authority profited over 184.5 million NIS from solar field projects, approving 68 new transactions with a total capacity of 750 megawatts.”
+              </p>
+
+            </div>
+          )}
+        </div>
+        {/*west-bank scene*/}
+        <div data-scene-id="west-bank" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Back Again</h1>
+              <div className="hero-body">
+              </div>
+              <p>
+              Contrary to the ambassador’s words, in the occupied West Bank, the sun does not shine equally on all. 
+              </p>
+              <p>
+              International corporations are deeply embedded in the solar infrastructure that underpins Israel’s occupation. Across Area C of the West Bank and Naqab/Negev, dozens of foreign companies manufacture, sell, and maintain solar systems that power settlements and industrial zones — either directly or through joint partnerships with Israeli firms. The most commercially entangled countries are the United States, Germany, China, France, and Italy. 
+              </p>
+
+            </div>
+          )}
+        </div>
+        {/*globe scene*/}
+        <div data-scene-id="globe-scene" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Globe</h1>
+              <div className="hero-body">
+              </div>
+
+            </div>
+          )}
+        </div>
+        {/*globe scene*/}
+        <div data-scene-id="globe-scene" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Globe</h1>
+              <div className="hero-body">
+              </div>
+
+            </div>
+          )}
+        </div>
+        {/*globe scene*/}
+        <div data-scene-id="globe-scene" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Globe</h1>
+              <div className="hero-body">
+              </div>
+
+            </div>
+          )}
+        </div>
+        {/*globe scene*/}
+        <div data-scene-id="globe-scene" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Globe</h1>
+              <div className="hero-body">
+              </div>
+
+            </div>
+          )}
+        </div>
+        {/*globe scene*/}
+        <div data-scene-id="globe-scene" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Globe</h1>
+              <div className="hero-body">
+              </div>
+
+            </div>
+          )}
+        </div>
+        {/*intro-2 scene*/}
+        <div data-scene-id="intro-2" className="scroll-section">
+          {storyStarted && (
+            <div className="hero-card">
+              <h1 className="hero-title">Introduction</h1>
+              <div className="hero-body">
+              </div>
+
+            </div>
+          )}
+        </div>
 
 
 

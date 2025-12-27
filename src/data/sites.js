@@ -81,6 +81,12 @@ export const sites = {
     pointGeoJson: '/data/geojson/Jericho-Governate.geojson',
     tableCsv: null,
   },
+  'beit-al-ajdad': {
+    id: 'beit-al-ajdad',
+    name: 'Beit Al-Ajdad Elderly Care Home',
+    pointGeoJson: '/data/geojson/Beit-Al-Ajdad.geojson',
+    tableCsv: null,
+  },
 }
 
 

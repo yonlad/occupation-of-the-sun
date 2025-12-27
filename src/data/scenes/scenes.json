@@ -261,14 +261,134 @@
   }   
 },
 {
-  "id": "jericho-governate",
+  "id": "naama-zoom",
   "camera" : {
-    "center": [35.45773934819883 , 31.86783239284061],
+    "center": [35.463699 , 31.907352],
+    "zoom" : 16,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "naama-2",
+  "camera" : {
+    "center": [35.45707 , 31.91369],
     "zoom" : 15.03,
     "pitch" : 0,
     "bearing" : 17,
     "duration" : 2000
   }   
+},
+{
+  "id": "naama-solar",
+  "camera" : {
+    "center": [35.454599 , 31.917922],
+    "zoom" : 16.03,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "naama-nueima-2",
+  "camera" : {
+    "center": [35.4318 , 31.91065],
+    "zoom" : 13.48,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "nueima-zoom",
+  "camera" : {
+    "center": [35.43352 , 31.88695],
+    "zoom" : 13.59,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "nueima-solar",
+  "camera" : {
+    "center": [35.439212 , 31.912765],
+    "zoom" : 16.3,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "nueima-solar-video",
+  "camera" : {
+    "center": [35.439212 , 31.912765],
+    "zoom" : 16.3,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "nueima-zoom-2",
+  "camera" : {
+    "center": [35.43352 , 31.88695],
+    "zoom" : 13.59,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "beit-al-ajdad",
+  "camera" : {
+    "center": [35.455309 , 31.868562],
+    "zoom" : 15.5,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "beit-al-ajdad-video",
+  "camera" : {
+    "center": [35.455309 , 31.868562],
+    "zoom" : 15.5,
+    "pitch" : 0,
+    "bearing" : 17,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "west-bank",
+  "camera" : {
+    "center": [34.6855 , 32.1554],
+    "zoom" : 8.5,
+    "pitch" : 0,
+    "bearing" : 9.8,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "globe-scene",
+  "camera" : {
+    "center": [-8.8 , 32.9],
+    "zoom" : 1.5,
+    "pitch" : 0,
+    "bearing" : 2.2,
+    "duration" : 2000
+  }   
+},
+{
+  "id": "intro-2",
+  "camera": {
+    "center": [34.761, 32.312],
+    "zoom": 8,
+    "pitch": 59,
+    "bearing": 35.3,
+    "duration": 2000
+  }
 }
 ]
 
