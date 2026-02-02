@@ -1,0 +1,9 @@
+{
+    "type": "FeatureCollection",
+    "name": "Beit Al-Ajdad",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+    "features": [
+    { "type": "Feature", "properties": { "id": 5 }, "geometry": { "type": "Point", "coordinates": [ 35.46039568186154 , 31.86781904603133 ] } }
+    ]
+    }
+    

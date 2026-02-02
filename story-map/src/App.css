@@ -1,0 +1,757 @@
+/* Landing page full-bleed map layout */
+.landing {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  
+  /* Scroll snap for hero card centering */
+  scroll-snap-type: y mandatory; /* Proximity snapping for better centering | could be changed to mandatory | also can be changed to proximity to allow smoother scrolling with mouse wheel */
+/*
+ * Custom CSS scroll snap usually uses `scroll-behavior: smooth`, but browser default smoothness duration is not configurable here.
+ * To create slower, ultra-smooth snap animations, you'll need to use `scroll-behavior: smooth` here, but 
+ * for further control, use JavaScript to animate scroll with a custom duration and easing.
+ * As a hint for future development, you can remove or keep the line below, but JS must be used for real control:
+ */
+scroll-behavior: smooth;
+}
+
+.landing::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure scrolling works */
+.landing * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.landing-header {
+  position: fixed;
+  top: 10px;
+  max-width: 80%;
+  height: 20px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  /*background: rgba(60, 60, 60, 0.9);*/
+  border-radius: 20px;
+}
+
+.logo img {
+  display: block;
+  height: 24px;
+  width: auto;
+}
+
+.landing-nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.landing-nav a {
+  color: var(--body-color);
+  text-decoration: none;
+  font-weight: 400;
+  font-family: var(--body-font);
+}
+
+.landing-nav a:hover {
+  text-decoration: underline;
+}
+
+.chapter-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.landing-map {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none; /* Let scroll events pass through to .landing  so that map layer is not interactable*/
+}
+
+/* Mobile map - always visible, covered by hero sections */
+@media (max-width: 768px) {
+  .landing-map {
+    z-index: 1;
+    position: fixed;
+    inset: 0;
+  }
+}
+
+/* Mobile hero section - full screen text with transparent background */
+.mobile-hero-section {
+  background: transparent;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+  padding-top: 80px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
+  min-height: 100vh;
+  height: 100vh;
+  border-radius: 0 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+/* Target hero-card elements within mobile-hero-section - match desktop aesthetics */
+.mobile-hero-section .hero-card,
+.mobile-hero-section .hero-card-video,
+.mobile-hero-section .hero-card-complicity {
+  position: relative !important;
+  top: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+  max-width: 100vw !important;
+  width: 100vw !important;
+  margin: 0 !important;
+  /* Match desktop hero card aesthetics exactly */
+  background: rgba(40, 40, 42, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+  animation: fadeIn 0.4s ease !important;
+  color: var(--body-color) !important;
+  /* Layout and scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Mobile scene section - transparent, map shows through */
+.mobile-scene-section {
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+  position: relative;
+}
+
+/* Mobile combined section - hero card shown alongside the map (used for sub-intro with map legend) */
+.mobile-combined-section {
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+}
+
+/* Mobile video section - show video directly without hero card wrapper */
+.mobile-scene-section.mobile-video-section {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  min-height: 100vh;
+  height: 100vh;
+  position: relative;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  /* Override scroll-section padding for mobile hero sections */
+  .scroll-section.mobile-hero-section,
+  .scroll-section.loop-trigger {
+    padding: 0 !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  
+  /* Adjust hero card styling for mobile - match desktop padding */
+  .mobile-hero-section .hero-card,
+  .mobile-hero-section .hero-card-video,
+  .mobile-hero-section .hero-card-complicity {
+    padding: 40px !important;
+    margin: 0 !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+  
+  .mobile-hero-section .hero-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  
+  .mobile-hero-section .hero-body {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  .mobile-hero-section .hero-body p {
+    text-align: left;
+  }
+  
+  /* Make header more compact on mobile */
+  .landing-header {
+    max-width: 95%;
+    padding: 10px 12px;
+    font-size: 12px;
+    height: auto;
+    min-height: 40px;
+    border-radius: 0 !important;
+  }
+  
+  .chapter-nav {
+    display: none; /* Hide chapter nav on mobile - can be made into a menu later */
+  }
+  
+  .logo img {
+    height: 18px;
+  }
+  
+  .landing-nav {
+    font-size: 13px;
+    gap: 12px;
+  }
+  
+  /* Ensure scene sections take full height */
+  .mobile-scene-section {
+    min-height: 100vh;
+    height: 100vh;
+  }
+  
+  /* Video scenes on mobile - hide hero-card-video wrapper elements, show only video */
+  .mobile-video-section .hero-card-video {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Hide title in video scenes on mobile */
+  .mobile-video-section .hero-card-video .hero-title {
+    display: none !important;
+  }
+  
+  /* Remove padding from hero-body in video scenes */
+  .mobile-video-section .hero-card-video .hero-body {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Show video container full width with no border radius */
+  .mobile-video-section .video-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    z-index: 10;
+    box-shadow: none !important;
+    background: #000 !important;
+  }
+  
+  .mobile-video-section .scene-video {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+    height: auto;
+  }
+  
+  .mobile-video-section .scene-video-embed {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+    height: auto;
+  }
+  
+  /* Complicity cards on mobile */
+  .hero-card-complicity {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    max-width: 100% !important;
+    width: 100%;
+    margin: 0;
+    padding: 24px !important;
+  }
+  
+  /* Loop trigger card on mobile - match mobile hero card styling */
+  .loop-trigger .hero-card.loop-card,
+  .loop-trigger .loop-card {
+    position: relative !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    margin: 0 !important;
+    padding: 40px !important;
+    background: rgba(40, 40, 42, 0.7) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6) !important;
+    animation: fadeIn 0.4s ease !important;
+    color: var(--body-color) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    z-index: 10;
+    pointer-events: auto;
+  }
+  
+  /* Hero card legend - compact styling for mobile */
+  .hero-card-legend {
+    position: absolute !important;
+    top: 300px !important;
+    left: 10px !important;
+    right: auto !important;
+    max-width: 120px !important;
+    width: auto !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+    background: rgba(40, 40, 42, 0.85) !important;
+    z-index: 10 !important;
+    pointer-events: auto !important; /* Ensure legend is readable/scrollable */
+  }
+  
+  /* Mobile combined section styling */
+  .mobile-combined-section {
+    min-height: 100vh;
+    height: 100vh;
+  }
+  
+  .hero-card-legend .hero-title {
+    font-size: 12px !important;
+    margin-bottom: 6px !important;
+  }
+  
+  .hero-card-legend .hero-body {
+    font-size: 9px !important;
+    line-height: 1.3 !important;
+  }
+  
+  .hero-card-legend .hero-body p {
+    margin: 0 0 4px 0 !important;
+  }
+  
+  .hero-card-legend .hero-body img {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  
+  /* Mobile legend overlay - positioned at bottom right on mobile for sub-intro-2 scene */
+  .mobile-legend-overlay {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 20px !important;
+    left: auto !important;
+    right: 10px !important;
+    z-index: 15 !important;
+    max-width: 140px !important;
+    padding: 10px 12px !important;
+    background: rgba(40, 40, 42, 0.9) !important;
+  }
+}
+
+.hero-card {
+  position: absolute;
+  top: 130px;
+  left: 40px;
+  max-width: 480px;
+  z-index: 10;
+  background: rgba(40, 40, 42, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 40px;
+  border-radius: 10px;
+  color: var(--body-color);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.4s ease;
+  pointer-events: auto; /* Hero cards are clickable */
+}
+.hero-card-legend {
+  position: absolute;
+  top: 130px;
+  left: 40px;
+  max-width: 200px;
+  z-index: 10;
+  background: rgba(40, 40, 42, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 40px;
+  border-radius: 10px;
+  color: var(--body-color);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.4s ease;
+  pointer-events: auto; /* Hero cards are clickable */
+}
+.hero-card-complicity {
+  position: relative;
+  top: 60%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  width: 90vw;
+  z-index: 10;
+  background: rgba(40, 40, 42, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 40px;
+  border-radius: 10px;
+  color: var(--body-color);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.4s ease;
+  pointer-events: auto; /* Hero cards are clickable */
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-family: var(--title-font);
+  color: var(--title-color);
+}
+
+.hero-subtitle {
+  font-size: 17px;
+  font-weight: 400;
+  margin: 0 0 24px 0;
+  line-height: 1.45;
+  color: var(--body-color);
+  font-family: var(--body-font);
+}
+
+.hero-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--body-color);
+  font-family: var(--body-font);
+}
+
+.hero-body p {
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+.hero-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* RTL support for Hebrew/Arabic text */
+.hero-body p[dir="rtl"],
+.hero-body [lang="he"],
+.hero-body [lang="ar"] {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: embed;
+}
+
+/* Start button */
+.start-button {
+  background: none;
+  border: none;
+  color: var(--body-color);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--body-font);
+}
+
+.start-button:hover {
+  text-decoration: underline;
+}
+
+/* Scroll container and sections (click-through overlay) */
+.scroll-container {
+  position: relative;
+  z-index: 2;
+  pointer-events: none; /* allow clicks to pass to map */
+}
+
+.scroll-section {
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 130px 40px 40px 40px;
+  position: relative;
+  pointer-events: none; /* allow clicks to pass to map */
+  
+  /* Snap each section to start when scrolling */
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* Ensures each section is visited */
+}
+
+/* Hero cards are clickable */
+.scroll-section .hero-card {
+  pointer-events: auto;
+}
+
+.hero-card::-webkit-scrollbar {
+  background: rgba(40, 40, 42, 0.1);;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+  width: 10px;
+  height: 10px;
+}
+
+.hero-card::-webkit-scrollbar-thumb {
+  background: #f2f0ef91;
+  border-radius: 20px;
+}
+
+
+
+/* Other pages */
+.content {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-card-video {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  max-width: 1200px;
+  z-index: 10;
+  background: rgba(40, 40, 42, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 40px;
+  border-radius: 16px;
+  color: var(--body-color);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.4s ease;
+  pointer-events: auto; /* Hero cards are clickable */
+}
+
+.hero-body-video {
+  width: 100%;
+  height: 400px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+/* Video container styling - customize this to design your video player */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0a0a;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Video element styling */
+.scene-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+/* Google Drive iframe video embed */
+.scene-video-embed {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: none;
+}
+
+/* Custom video controls appearance (browser-dependent) */
+.scene-video::-webkit-media-controls-panel {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.scene-video:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+}
+
+/* Video play button overlay */
+.video-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.video-play-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-button svg {
+  width: 36px;
+  height: 36px;
+  margin-left: 4px; /* slight offset to center the triangle visually */
+}
+
+/* Loop trigger section */
+.loop-trigger {
+  opacity: 0.9;
+}
+
+.loop-trigger .loop-card {
+  text-align: center;
+  background: rgba(40, 40, 42, 1);
+  max-width: 400px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.loop-trigger .loop-card .hero-title {
+  font-size: 36px;
+  margin-bottom: -15px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.loop-trigger .loop-card .hero-body p {
+  text-align: left;
+  opacity: 1;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Scroll indicator animation */
+.scroll-indicator {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+  animation: scrollBounce 1.5s ease-in-out infinite, fadeIn 0.4s ease;
+}
+
+.scroll-indicator-icon {
+  width: 50px;
+  height: auto;
+  opacity: 1;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Mobile scroll indicator adjustments */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    bottom: 150px;
+  }
+  
+  .scroll-indicator-icon {
+    width: 32px;
+  }
+}

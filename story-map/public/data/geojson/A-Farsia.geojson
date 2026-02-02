@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "A-Farsia",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "Point", "coordinates": [ 736257.388465449679643, 3581171.814577243290842 ] } }
+]
+}

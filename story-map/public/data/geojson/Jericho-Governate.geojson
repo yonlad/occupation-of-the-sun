@@ -1,0 +1,9 @@
+{
+    "type": "FeatureCollection",
+    "name": "Jericho Governate",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+    "features": [
+    { "type": "Feature", "properties": { "id": 5 }, "geometry": { "type": "Point", "coordinates": [ 35.45773934819883 , 31.86783239284061 ] } }
+    ]
+    }
+    

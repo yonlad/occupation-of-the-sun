@@ -1,0 +1,9 @@
+{
+    "type": "FeatureCollection",
+    "name": "Rotem",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32236" } },
+    "features": [
+    { "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "Point", "coordinates": [ 737054.8300276144, 3580511.23910483 ] } }
+    ]
+    }
+    

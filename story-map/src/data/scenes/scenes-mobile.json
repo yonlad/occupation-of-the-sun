@@ -1,0 +1,386 @@
+[
+  {
+    "id": "intro",
+    "camera": {
+      "center": [35.5, 32],
+      "zoom": 7,
+      "pitch": 45,
+      "bearing": 35.3,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "sub-intro",
+    "camera": {
+      "center": [35, 32],
+      "zoom": 7.5,
+      "pitch": 0,
+      "bearing": 9.8,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "farsia-village",
+    "siteId": "farsia",
+    "camera": {
+      "center": [35.52392, 32.34723],
+      "zoom": 13.01,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "farsia-video",
+    "siteId": "farsia-video",
+    "camera": {
+      "center": [35.510266, 32.342945],
+      "zoom": 15.8,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "farsia-village-2",
+    "siteId": "farsia-village-2",
+    "camera": {
+      "center": [35.510266, 32.342945],
+      "zoom": 15.8,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "rotem",
+    "siteId": "rotem",
+    "camera": {
+      "center": [35.510266, 32.342945],
+      "zoom": 15.8,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "rotem-video",
+    "siteId": "rotem-video",
+    "camera": {
+      "center": [35.510266, 32.342945],
+      "zoom": 15.8,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "settlements",
+    "siteId": "settlements",
+    "camera": {
+      "center": [35.52333, 32.34505],
+      "zoom": 13,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola",
+    "siteId": "shdemot-mehola",
+    "camera": {
+      "center": [35.5318, 32.34625],
+      "zoom": 15,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola-zoom",
+    "siteId": "shdemot-mehola-zoom",
+    "camera": {
+      "center": [35.531796, 32.347779],
+      "zoom": 15.6,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola-zoom-2",
+    "siteId": "shdemot-mehola-zoom-2",
+    "camera": {
+      "center": [35.531796, 32.347779],
+      "zoom": 15.6,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola-video",
+    "siteId": "shdemot-mehola-video",
+    "camera": {
+      "center": [35.531796, 32.347779],
+      "zoom": 15.6,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola-out",
+    "siteId": "shdemot-mehola-out",
+    "camera": {
+      "center": [35.5318, 32.34625],
+      "zoom": 15,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola-solar-field",
+    "siteId": "shdemot-mehola-solar-field",
+    "camera": {
+      "center": [35.533734, 32.342734],
+      "zoom": 16,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "shdemot-mehola-solar-video",
+    "siteId": "shdemot-mehola-solar-video",
+    "camera": {
+      "center": [35.533734, 32.342734],
+      "zoom": 16,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "settlements-2",
+    "siteId": "settlements",
+    "camera": {
+      "center": [35.52333, 32.34505],
+      "zoom": 13,
+      "pitch": 1,
+      "bearing": 7.5,
+      "duration": 2500
+    }
+  },
+  {
+    "id": "sub-intro-2",
+    "camera": {
+      "center": [35, 32],
+      "zoom": 7.5,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama-nueima",
+    "camera": {
+      "center": [35.45252, 31.90667],
+      "zoom": 12.49,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama",
+    "camera": {
+      "center": [35.46482, 31.91176],
+      "zoom": 13.97,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama-zoom",
+    "camera": {
+      "center": [35.46699, 31.90774],
+      "zoom": 15.02,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama-video",
+    "camera": {
+      "center": [35.46699, 31.90774],
+      "zoom": 15.02,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama-2",
+    "camera": {
+      "center": [35.46482, 31.91176],
+      "zoom": 13.97,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama-solar-video",
+    "camera": {
+      "center": [35.460252, 31.916709],
+      "zoom": 15.71,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "naama-nueima-2",
+    "camera": {
+      "center": [35.45252, 31.90667],
+      "zoom": 12.49,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "nueima-zoom",
+    "camera": {
+      "center": [35.44692, 31.88273],
+      "zoom": 12.68,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "nueima-solar",
+    "camera": {
+      "center": [35.441403, 31.912053],
+      "zoom": 15.62,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "nueima-solar-video",
+    "camera": {
+      "center": [35.441403, 31.912053],
+      "zoom": 15.62,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "nueima-zoom-2",
+    "camera": {
+      "center": [35.44692, 31.88273],
+      "zoom": 12.68,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "beit-al-ajdad",
+    "camera": {
+      "center": [35.459145, 31.868286],
+      "zoom": 15.11,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "beit-al-ajdad-video",
+    "camera": {
+      "center": [35.459145, 31.868286],
+      "zoom": 15.11,
+      "pitch": 0,
+      "bearing": 17,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "west-bank",
+    "camera": {
+      "center": [35, 32],
+      "zoom": 7.5,
+      "pitch": 0,
+      "bearing": 9.8,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "globe-scene",
+    "camera": {
+      "center": [25, 15.7],
+      "zoom": 0.49,
+      "pitch": 0,
+      "bearing": 2.2,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "globe-scene-2",
+    "camera": {
+      "center": [25, 15.7],
+      "zoom": 0.49,
+      "pitch": 0,
+      "bearing": 2.2,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "globe-scene-3",
+    "camera": {
+      "center": [25, 15.7],
+      "zoom": 0.49,
+      "pitch": 0,
+      "bearing": 2.2,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "globe-scene-4",
+    "camera": {
+      "center": [25, 15.7],
+      "zoom": 0.49,
+      "pitch": 0,
+      "bearing": 2.2,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "globe-scene-5",
+    "camera": {
+      "center": [25, 15.7],
+      "zoom": 0.49,
+      "pitch": 0,
+      "bearing": 2.2,
+      "duration": 2000
+    }
+  },
+  {
+    "id": "loop-trigger",
+    "camera": {
+      "center": [35.5, 32],
+      "zoom": 7,
+      "pitch": 45,
+      "bearing": 35.3,
+      "duration": 2000
+    }
+  }
+]
