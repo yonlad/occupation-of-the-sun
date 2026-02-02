@@ -2,13 +2,128 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/occupation-of-the-sun/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>story-map</title>
-    <script type="module" crossorigin src="/occupation-of-the-sun/assets/index-CNw2NdRT.js"></script>
-    <link rel="stylesheet" crossorigin href="/occupation-of-the-sun/assets/index-BbTF0LLB.css">
+    
+    <!-- Primary Meta Tags -->
+    <title>Occupation of the Sun | Interactive Story Map</title>
+    <meta name="title" content="Occupation of the Sun | Interactive Story Map" />
+    <meta name="description" content="An interactive story map exploring the lives of Palestinian Bedouin communities in the West Bank, including Farsia, Naama, and Nueima, and how solar energy and settlements impact their daily existence." />
+    <meta name="keywords" content="Palestine, West Bank, Bedouin, interactive map, story map, Farsia, Naama, Nueima, settlements, solar energy, Jordan Valley, documentary, human rights" />
+    <meta name="author" content="Occupation of the Sun" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    
+    <!-- Canonical URL - Update this to your actual deployed URL -->
+    <link rel="canonical" href="https://www.occupationofthesun.com/" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/occupation-of-the-sun/assets/Camel.png" />
+    <link rel="apple-touch-icon" href="/occupation-of-the-sun/assets/Camel.png" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.occupationofthesun.com/" />
+    <meta property="og:title" content="Occupation of the Sun | Interactive Story Map" />
+    <meta property="og:description" content="An interactive story map exploring the lives of Palestinian Bedouin communities in the West Bank and the impact of solar energy and settlements on their existence." />
+    <meta property="og:image" content="https://www.occupationofthesun.com/assets/Camel.png" />
+    <meta property="og:site_name" content="Occupation of the Sun" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.occupationofthesun.com/" />
+    <meta name="twitter:title" content="Occupation of the Sun | Interactive Story Map" />
+    <meta name="twitter:description" content="An interactive story map exploring the lives of Palestinian Bedouin communities in the West Bank and the impact of solar energy and settlements on their existence." />
+    <meta name="twitter:image" content="https://www.occupationofthesun.com/assets/Camel.png" />
+    
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="msapplication-TileColor" content="#1a1a2e" />
+    
+    <!-- Additional SEO -->
+    <meta name="geo.region" content="PS" />
+    <meta name="geo.placename" content="West Bank" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/occupation-of-the-sun/manifest.json" />
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://api.maptiler.com" />
+    <link rel="dns-prefetch" href="https://api.maptiler.com" />
+    
+    <!-- JSON-LD Structured Data for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Occupation of the Sun",
+      "alternateName": "OTS",
+      "url": "https://www.occupationofthesun.com/",
+      "description": "An interactive story map exploring the lives of Palestinian Bedouin communities in the West Bank and how solar energy and settlements impact their daily existence.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Caravan Collective",
+        "url": "https://caravancollective.org/"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.occupationofthesun.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The Occupation of the Sun",
+      "description": "Research and documentary project investigating how Israel employs the use of solar energy as a means of Palestinian land confiscation and exploitation in the occupied West Bank.",
+      "image": "https://www.occupationofthesun.com/assets/Camel.png",
+      "author": {
+        "@type": "Organization",
+        "name": "Caravan Collective",
+        "url": "https://caravancollective.org/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Caravan Collective",
+        "url": "https://caravancollective.org/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.occupationofthesun.com/"
+      },
+      "about": [
+        {
+          "@type": "Place",
+          "name": "West Bank",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 31.9,
+            "longitude": 35.2
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Jordan Valley"
+        }
+      ],
+      "keywords": "Palestine, West Bank, Bedouin, solar energy, settlements, Jordan Valley, Al-Farsiya, Nueima, documentary, human rights"
+    }
+    </script>
+    <script type="module" crossorigin src="/occupation-of-the-sun/assets/index-Bx2dVsJI.js"></script>
+    <link rel="stylesheet" crossorigin href="/occupation-of-the-sun/assets/index-Bdh7I62p.css">
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; text-align: center; font-family: system-ui, sans-serif;">
+        <h1>Occupation of the Sun</h1>
+        <p>An interactive story map exploring the lives of Palestinian Bedouin communities in the West Bank.</p>
+        <p>This interactive experience requires JavaScript to run. Please enable JavaScript in your browser to explore the story.</p>
+        <p>Learn more at <a href="https://caravancollective.org/">Caravan Collective</a></p>
+      </div>
+    </noscript>
   </body>
 </html>
