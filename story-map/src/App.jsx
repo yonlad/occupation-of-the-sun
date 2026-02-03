@@ -726,27 +726,7 @@ function Home() {
               </div>
             </div>
           )}
-        </SceneSection>
-        {/* Nu'eima Solar Video scene */}
-        <SceneSection sceneId="nueima-solar-video" isMobile={isMobile} showHero={storyStarted}>
-          {storyStarted && (
-            <div className="hero-card-video">
-              <h1 className="hero-title">Noor Jericho Solar Power Station</h1>
-              <div className="hero-body">
-                <div className="video-container">
-                <iframe 
-                    className="scene-video-embed"
-                    src="https://drive.google.com/file/d/1Rv5I0d2RIGnmHaqhDSZeTZztU1o3-XR7/preview"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    frameBorder="0"
-                    title="Noor Jericho Solar Power Station Video"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          )}
-        </SceneSection>
+        
         {/*nueima zoom 2 scene*/}
         <SceneSection sceneId="nueima-zoom-2" isMobile={isMobile} showHero={storyStarted}>
           {storyStarted && (
