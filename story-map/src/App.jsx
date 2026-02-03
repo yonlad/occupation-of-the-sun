@@ -726,6 +726,7 @@ function Home() {
               </div>
             </div>
           )}
+        </SceneSection>
         
         {/*nueima zoom 2 scene*/}
         <SceneSection sceneId="nueima-zoom-2" isMobile={isMobile} showHero={storyStarted}>
