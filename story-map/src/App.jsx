@@ -94,11 +94,9 @@ function Home() {
   const [storyStarted, setStoryStarted] = useState(false)
   const [heroVisible, setHeroVisible] = useState(true)
   const [visibleSiteIds, setVisibleSiteIds] = useState([])
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
   const landingRef = useRef(null)
   const suppressIntroHeroOnceRef = useRef(false)
-  const farsiaVideoRef = useRef(null)
   const isMobile = useIsMobile()
   
   const handleStartClick = () => {
@@ -181,16 +179,19 @@ function Home() {
     return () => container.removeEventListener('scroll', handleScroll)
   }, [])
   
-  // Pause video when leaving the video scene
+  // Stop all YouTube/iframe videos when leaving any video scene
   useEffect(() => {
-    if (currentScene !== 'farsia-video' && farsiaVideoRef.current) {
-      farsiaVideoRef.current.pause()
-      setIsVideoPlaying(false)
+    const isVideoScene = currentScene?.includes('video')
+    if (!isVideoScene) {
+      document.querySelectorAll('.scene-video-embed').forEach((iframe) => {
+        const src = iframe.getAttribute('src')
+        if (src) {
+          iframe.setAttribute('src', '')
+          iframe.setAttribute('src', src)
+        }
+      })
     }
   }, [currentScene])
-  
-  const handleVideoPlay = () => setIsVideoPlaying(true)
-  const handleVideoPause = () => setIsVideoPlaying(false)
 
   useEffect(() => {
     const script = sceneDotScript[currentScene]
