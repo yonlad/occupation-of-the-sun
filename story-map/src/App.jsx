@@ -388,8 +388,8 @@ function Home() {
                 <div className="video-container">
                 <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/1IN_IAOZdGmLy2C-crf1Rn-fEep0jwp7b/preview"
-                    allow="autoplay; encrypted-media"
+                    src="https://www.youtube.com/embed/niObZ0a2UMM"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Shadmot Mehola Settlement Video"
@@ -482,7 +482,7 @@ function Home() {
                 <iframe 
                     className="scene-video-embed"
                     src="https://www.youtube.com/embed/Fjm7YOwJObA"
-                    allow="autoplay; encrypted-media"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Shadmot Mehola Settlement Video"
@@ -538,8 +538,8 @@ function Home() {
                 <div className="video-container">
                 <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/12s9mW3DdqST1dKR9zDW85qQPp881Q-CV/preview"
-                    allow="autoplay; encrypted-media"
+                    src="https://www.youtube.com/embed/a4OZaWXzw8c"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Shadmot Mehola Solar Field Video"
@@ -638,7 +638,7 @@ function Home() {
                 <iframe 
                     className="scene-video-embed"
                     src="https://www.youtube.com/embed/g8M39r7NDgg"
-                    allow="autoplay; encrypted-media"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Na'ama Settlement Video"
@@ -673,8 +673,8 @@ function Home() {
                 <div className="video-container">
                 <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/1EFsjGiorU5O67F6Fgu1s-dhQ6x1632_r/preview"
-                    allow="autoplay; encrypted-media"
+                    src="https://www.youtube.com/embed/Y2jHOmZf8cQ"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Na'ama Solar Field Video"
@@ -768,7 +768,7 @@ function Home() {
                 <iframe 
                     className="scene-video-embed"
                     src="https://www.youtube.com/embed/SlfyK2_MGBc"
-                    allow="autoplay; encrypted-media"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Beit Al-Ajdad Elderly Care Home Video"
