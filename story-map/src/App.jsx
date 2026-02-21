@@ -308,7 +308,7 @@ function Home() {
               <div className="hero-body">
                 <p>Barely a couple of kilometres apart, the Palestinian village of <strong>Al-Farsiya Naba’a Al-Ghazzal</strong> and the Israeli settlement of <strong>Shadmot Mehola</strong> face two starkly different everyday realities.
                 </p>
-                <p>By examining the disparity in access to solar energy use and production, The Occupation of the Sun narrates how <strong>Palestinian energy self-reliance is undermined by large-scale infrastructure projects that bolster Israeli settlements, backed by global investors and institutions.</strong>
+                <p>By examining the disparity in access to solar energy use and production, <i>The Occupation of the Sun</i> narrates how <strong>Palestinian energy self-reliance is undermined by large-scale infrastructure projects that bolster Israeli settlements, backed by global investors and institutions.</strong>
                 </p>
                 <p><i>The Occupation of the Sun</i> reveals only a part of the complex and deeply rooted systems of oppression and apartheid that characterise Israel's occupation of Palestine.</p>
               </div>
@@ -325,7 +325,7 @@ function Home() {
               <p>In the northern edge of the Jordan Valley, is the village of <strong>Al-Farsiya Naba’a Al-Ghazzal.</strong></p>
               <p>For 47 years, the tiny hamlet, home to roughly 20 members of the Daraghme family, has survived under Israeli occupation.</p>
               <p>All of the community electricity comes from a handful of solar panels. They once had a generator, but it was destroyed during one of several settler attacks in April 2024</p>
-              <p><strong>Al-Farsiya is one of the last remaining Palestinian shepherding communities in the Jordan Valley.</strong> Most others have already been displaced. The Daraghme family counts a few hundred sheep and a small strip of barley fields, an economy steadily strangled by nearby settler outposts which block access to grazing land and routinely damage crops by running their own flocks through the fields. Tubas, the closest Palestinian town, used to be a half-hour drive away; now, with the Israeli military’s closure of the Al-Hamra checkpoint for nearly two years, every trip requires a multi-hour detour.
+              <p><strong>Al-Farsiya is one of the last remaining Palestinian shepherding communities in the Jordan Valley.</strong> Most others have already been displaced. The Daraghme family counts a few hundred sheep and a small strip of barley fields, an economy steadily strangled by nearby settler outposts which block access to grazing land and routinely damage crops by running their own flocks through the fields. Tubas, the closest Palestinian town, used to be a half-hour drive away; now, since the Israeli military keeps the nearby Tayasir checkpoint nearly permanently closed, every trip requires a multi-hour detour.
 </p>
               </div>
             </div>
@@ -341,8 +341,8 @@ function Home() {
                 <div className="video-container">
                   <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/1eC69czxqpQDPm6fXnR4hcI-ETMKqHas7/preview"
-                    allow="autoplay; encrypted-media"
+                    src="https://www.youtube.com/embed/gsEn2ahX2fA"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     frameBorder="0"
                     title="Al-Farsiya Community Video"
@@ -480,7 +480,7 @@ function Home() {
                 <div className="video-container">
                 <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/10N4cKdGfYanMGWEncFd-A-zMiafnESVH/preview"
+                    src="https://www.youtube.com/embed/Fjm7YOwJObA"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     frameBorder="0"
@@ -636,7 +636,7 @@ function Home() {
                 <div className="video-container">
                 <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/17JvU2OaXflgFEpe-6vBeUuCbKVETgt-_/preview"
+                    src="https://www.youtube.com/embed/g8M39r7NDgg"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     frameBorder="0"
@@ -766,7 +766,7 @@ function Home() {
                 <div className="video-container">
                 <iframe 
                     className="scene-video-embed"
-                    src="https://drive.google.com/file/d/1F-QUaTltDcK3eBSwiKc3AINvUsdanBrg/preview"
+                    src="https://www.youtube.com/embed/SlfyK2_MGBc"
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     frameBorder="0"
