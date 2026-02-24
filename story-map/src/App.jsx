@@ -179,10 +179,10 @@ function Home() {
     return () => container.removeEventListener('scroll', handleScroll)
   }, [])
   
-  // Stop all YouTube/iframe videos when leaving any video scene
+  // Stop all YouTube/iframe videos on any scene change
+  const prevSceneRef = useRef(currentScene)
   useEffect(() => {
-    const isVideoScene = currentScene?.includes('video')
-    if (!isVideoScene) {
+    if (prevSceneRef.current !== currentScene) {
       document.querySelectorAll('.scene-video-embed').forEach((iframe) => {
         const src = iframe.getAttribute('src')
         if (src) {
@@ -190,8 +190,40 @@ function Home() {
           iframe.setAttribute('src', src)
         }
       })
+      prevSceneRef.current = currentScene
     }
   }, [currentScene])
+
+  // Fallback: stop videos that scroll out of view (covers mobile edge cases)
+  useEffect(() => {
+    const container = landingRef.current
+    if (!container) return
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.scene-video-embed').forEach((iframe) => {
+          const rect = iframe.getBoundingClientRect()
+          const isVisible = rect.bottom > 0 && rect.top < window.innerHeight
+          if (!isVisible) {
+            const src = iframe.getAttribute('src')
+            const stopped = iframe.getAttribute('data-stopped')
+            if (src && !stopped) {
+              iframe.setAttribute('data-stopped', '1')
+              iframe.setAttribute('src', '')
+              iframe.setAttribute('src', src)
+            }
+          } else {
+            iframe.removeAttribute('data-stopped')
+          }
+        })
+        ticking = false
+      })
+    }
+    container.addEventListener('scroll', onScroll, { passive: true })
+    return () => container.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     const script = sceneDotScript[currentScene]
